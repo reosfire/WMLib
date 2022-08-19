@@ -16,8 +16,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import ru.reosfire.wmlib.guis.Inventory.Components.GuiComponent;
 import ru.reosfire.wmlib.text.Replacement;
 import ru.reosfire.wmlib.text.Text;
-import ru.reosfire.wmlib.commands.yaml.common.gui.ComponentConfig;
-import ru.reosfire.wmlib.commands.yaml.common.gui.GuiConfig;
+import ru.reosfire.wmlib.yaml.common.gui.ComponentConfig;
+import ru.reosfire.wmlib.yaml.common.gui.GuiConfig;
 
 import java.util.ArrayList;
 import java.util.HashSet;

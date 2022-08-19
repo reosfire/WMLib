@@ -9,7 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.Random;
+import java.util.UUID;
 
 public class HolographicGui
 {
@@ -17,7 +18,7 @@ public class HolographicGui
     public HolographicGui(Player player)
     {
         Player = player;
-        ShowSentence("asdfasdf", player.getLocation().add(new Vector(0,0,2)));
+        ShowSentence("test string", player.getLocation().add(new Vector(0,0,2)));
     }
     private void ShowSentence(String sentence, Location location)
     {

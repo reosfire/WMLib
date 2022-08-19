@@ -3,7 +3,7 @@ package ru.reosfire.wmlib.scoreboard;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import ru.reosfire.wmlib.Startup;
-import ru.reosfire.wmlib.commands.yaml.common.ScoreBoardConfig;
+import ru.reosfire.wmlib.yaml.common.ScoreBoardConfig;
 
 import java.util.HashMap;
 import java.util.LinkedList;

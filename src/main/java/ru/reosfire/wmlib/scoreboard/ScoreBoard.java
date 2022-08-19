@@ -13,7 +13,7 @@ import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.*;
 import ru.reosfire.wmlib.Startup;
 import ru.reosfire.wmlib.text.Text;
-import ru.reosfire.wmlib.commands.yaml.common.ScoreBoardConfig;
+import ru.reosfire.wmlib.yaml.common.ScoreBoardConfig;
 
 import java.util.HashMap;
 

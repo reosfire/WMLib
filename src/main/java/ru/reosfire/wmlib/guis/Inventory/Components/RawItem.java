@@ -3,7 +3,7 @@ package ru.reosfire.wmlib.guis.Inventory.Components;
 import org.bukkit.inventory.Inventory;
 import ru.reosfire.wmlib.guis.Inventory.Gui;
 import ru.reosfire.wmlib.text.Replacement;
-import ru.reosfire.wmlib.commands.yaml.common.gui.RawItemConfig;
+import ru.reosfire.wmlib.yaml.common.gui.RawItemConfig;
 
 public class RawItem extends GuiComponent
 {

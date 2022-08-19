@@ -21,10 +21,7 @@ public class ParticlesAnimation
     {
         if (Frames.size() == 0) return;
 
-        int gcdTime = gcd(Frames.stream().mapToInt((frame) ->
-        {
-            return frame.Time;
-        }).boxed().collect(Collectors.toList()));
+        int gcdTime = gcd(Frames.stream().mapToInt((frame) -> frame.Time).boxed().collect(Collectors.toList()));
         if (gcdTime > 1)
         {
             for (ParticleEffect frame : Frames)
@@ -60,10 +57,7 @@ public class ParticlesAnimation
     {
         if (Frames.size() == 0) return;
 
-        int gcdTime = gcd(Frames.stream().mapToInt((frame) ->
-        {
-            return frame.Time;
-        }).boxed().collect(Collectors.toList()));
+        int gcdTime = gcd(Frames.stream().mapToInt((frame) -> frame.Time).boxed().collect(Collectors.toList()));
         if (gcdTime > 1)
         {
             for (ParticleEffect frame : Frames)

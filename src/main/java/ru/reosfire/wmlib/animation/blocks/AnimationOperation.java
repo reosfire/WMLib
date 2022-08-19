@@ -17,18 +17,18 @@ public class AnimationOperation
         this.materialData = materialData;
     }
 
-    public AnimationOperation(Block block, ru.reosfire.wmlib.commands.yaml.common.Block blockData)
+    public AnimationOperation(Block block, ru.reosfire.wmlib.yaml.common.Block blockData)
     {
         this(block, blockData.getMaterialData());
     }
 
     public void Execute()
     {
-        ru.reosfire.wmlib.commands.yaml.common.Block.NMSSet(block, materialData);
+        ru.reosfire.wmlib.yaml.common.Block.NMSSet(block, materialData);
     }
     public void Execute(Player player)
     {
-        ru.reosfire.wmlib.commands.yaml.common.Block.SetFor(player, block, materialData);
+        ru.reosfire.wmlib.yaml.common.Block.SetFor(player, block, materialData);
     }
 
     public static void Execute(AnimationOperation... operations)

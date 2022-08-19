@@ -5,8 +5,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import ru.reosfire.wmlib.guis.Inventory.Gui;
 import ru.reosfire.wmlib.text.Replacement;
-import ru.reosfire.wmlib.commands.yaml.common.gui.SwitchConfig;
-import ru.reosfire.wmlib.commands.yaml.common.wrappers.ItemConfig;
+import ru.reosfire.wmlib.yaml.common.gui.SwitchConfig;
+import ru.reosfire.wmlib.yaml.common.wrappers.ItemConfig;
 
 import java.time.Instant;
 import java.util.List;

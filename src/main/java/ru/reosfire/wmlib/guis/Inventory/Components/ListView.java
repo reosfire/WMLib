@@ -4,7 +4,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import ru.reosfire.wmlib.guis.Inventory.Gui;
 import ru.reosfire.wmlib.text.Replacement;
-import ru.reosfire.wmlib.commands.yaml.common.gui.ListViewConfig;
+import ru.reosfire.wmlib.yaml.common.gui.ListViewConfig;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -4,7 +4,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import ru.reosfire.wmlib.guis.Inventory.Gui;
 import ru.reosfire.wmlib.text.Replacement;
-import ru.reosfire.wmlib.commands.yaml.common.gui.ButtonConfig;
+import ru.reosfire.wmlib.yaml.common.gui.ButtonConfig;
 
 public abstract class Button extends GuiComponent
 {

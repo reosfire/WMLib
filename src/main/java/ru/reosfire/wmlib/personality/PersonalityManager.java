@@ -52,16 +52,7 @@ public class PersonalityManager
         PreparedStatement preparedStatement = connection.getConnection().prepareStatement("SELECT * FROM " + stat +
                 " ORDER BY Value DESC, Time ASC LIMIT ?;");
         preparedStatement.setInt(1, count);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        List<PlayerStat> players = new ArrayList<>();
-        while (resultSet.next())
-        {
-            long value = resultSet.getLong("Value");
-            UUID uuid = UUIDConverter.FromBytes(resultSet.getBytes("UUID"));
-            PlayerStat playerStat = new PlayerStat(stat, value, uuid);
-            players.add(playerStat);
-        }
-        return players;
+        return getPlayerStats(stat, preparedStatement);
     }
 
     public List<PlayerStat> GetTop(String stat, int count, int from) throws SQLException
@@ -70,6 +61,11 @@ public class PersonalityManager
                 " ORDER BY Value DESC, Time ASC LIMIT ? OFFSET ?;");
         preparedStatement.setInt(1, count);
         preparedStatement.setInt(2, from);
+        return getPlayerStats(stat, preparedStatement);
+    }
+
+    private List<PlayerStat> getPlayerStats(String stat, PreparedStatement preparedStatement) throws SQLException
+    {
         ResultSet resultSet = preparedStatement.executeQuery();
         List<PlayerStat> players = new ArrayList<>();
         while (resultSet.next())

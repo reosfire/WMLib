@@ -4,9 +4,9 @@ import org.bukkit.inventory.Inventory;
 import ru.reosfire.wmlib.guis.Inventory.Gui;
 import ru.reosfire.wmlib.guis.Inventory.IClickEventHandler;
 import ru.reosfire.wmlib.text.Replacement;
-import ru.reosfire.wmlib.commands.yaml.common.gui.CommandButtonConfig;
-import ru.reosfire.wmlib.commands.yaml.common.gui.ComponentConfig;
-import ru.reosfire.wmlib.commands.yaml.common.gui.RawItemConfig;
+import ru.reosfire.wmlib.yaml.common.gui.CommandButtonConfig;
+import ru.reosfire.wmlib.yaml.common.gui.ComponentConfig;
+import ru.reosfire.wmlib.yaml.common.gui.RawItemConfig;
 
 import java.util.HashMap;
 import java.util.HashSet;

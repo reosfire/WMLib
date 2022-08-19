@@ -6,7 +6,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import ru.reosfire.wmlib.guis.Inventory.Gui;
 import ru.reosfire.wmlib.text.Replacement;
-import ru.reosfire.wmlib.commands.yaml.common.gui.ItemSelectorConfig;
+import ru.reosfire.wmlib.yaml.common.gui.ItemSelectorConfig;
 
 public abstract class ItemSelector extends GuiComponent
 {

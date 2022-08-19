@@ -3,7 +3,7 @@ package ru.reosfire.wmlib.guis.Inventory.Components;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import ru.reosfire.wmlib.guis.Inventory.Gui;
 import ru.reosfire.wmlib.guis.Inventory.IClickEventHandler;
-import ru.reosfire.wmlib.commands.yaml.common.gui.ButtonConfig;
+import ru.reosfire.wmlib.yaml.common.gui.ButtonConfig;
 
 public class DelegateButton extends Button
 {

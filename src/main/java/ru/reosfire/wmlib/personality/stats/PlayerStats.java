@@ -47,7 +47,7 @@ public class PlayerStats implements IPlayerStats
                 connection.getConnection().prepareStatement("SELECT Value FROM " + stat + " WHERE UUID=?;");
         preparedStatement.setBytes(1, UUIDConverter.ToBytes(playerUuid));
         ResultSet resultSet = preparedStatement.executeQuery();
-        long value = 0;
+        long value;
         if (resultSet.next()) { value = resultSet.getLong("Value"); }
         else { value = def; }
         return new PlayerStat(stat, value, playerUuid);
