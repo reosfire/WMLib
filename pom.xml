@@ -27,7 +27,7 @@
                     <finalName>${project.name}</finalName>
                     <filters>
                         <filter>
-                            <artifact>org.jetbrains*:*</artifact>
+                            <artifact>*:*</artifact>
                             <excludes>
                                 <exclude>META-INF/**</exclude>
                             </excludes>
