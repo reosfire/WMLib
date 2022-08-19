@@ -6,6 +6,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.reosfire.wmlib.text.Text;
 
@@ -23,7 +24,7 @@ public abstract class YamlConfig
     }
 
     public static YamlConfiguration loadOrCreate(String resultFileName, String defaultConfigurationResource,
-                                                 JavaPlugin plugin) throws IOException, InvalidConfigurationException
+                                                 Plugin plugin) throws IOException, InvalidConfigurationException
     {
         YamlConfiguration config = new YamlConfiguration();
         config.load(loadOrCreateFile(resultFileName, defaultConfigurationResource, plugin));
@@ -37,14 +38,14 @@ public abstract class YamlConfig
         return config;
     }
 
-    public static YamlConfiguration loadOrCreate(String fileName, JavaPlugin plugin) throws IOException,
+    public static YamlConfiguration loadOrCreate(String fileName, Plugin plugin) throws IOException,
             InvalidConfigurationException
     {
         return loadOrCreate(fileName, fileName, plugin);
     }
 
     public static File loadOrCreateFile(String resultFileName, String defaultConfigurationResource,
-                                        JavaPlugin plugin) throws IOException
+                                        Plugin plugin) throws IOException
     {
         File configFile = new File(plugin.getDataFolder(), resultFileName);
         if (!configFile.exists())
@@ -61,7 +62,7 @@ public abstract class YamlConfig
         return configFile;
     }
 
-    public static File loadOrCreateFile(String fileName, JavaPlugin plugin) throws IOException
+    public static File loadOrCreateFile(String fileName, Plugin plugin) throws IOException
     {
         return loadOrCreateFile(fileName, fileName, plugin);
     }

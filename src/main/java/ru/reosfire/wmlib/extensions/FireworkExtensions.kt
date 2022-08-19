@@ -5,8 +5,7 @@ import org.bukkit.FireworkEffect
 import org.bukkit.entity.Firework
 import java.util.concurrent.ThreadLocalRandom
 
-fun Firework.setRandomEffects()
-{
+fun Firework.setRandomEffects() {
     val random = ThreadLocalRandom.current()
 
     val meta = fireworkMeta
@@ -24,7 +23,6 @@ fun Firework.setRandomEffects()
     fireworkMeta = meta
 }
 
-private fun getRandomColor(): Color
-{
+private fun getRandomColor(): Color {
     return Color.fromBGR(ThreadLocalRandom.current().nextInt(1 shl 24))
 }
