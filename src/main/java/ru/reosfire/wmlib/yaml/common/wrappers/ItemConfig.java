@@ -11,8 +11,8 @@ import org.bukkit.inventory.meta.SkullMeta;
 import ru.reosfire.wmlib.text.IColorizer;
 import ru.reosfire.wmlib.text.Replacement;
 import ru.reosfire.wmlib.text.Text;
-import ru.reosfire.wmlib.yaml.YamlConfig;
 import ru.reosfire.wmlib.yaml.common.Enchantment;
+import ru.reosfire.wmlib.yaml.YamlConfig;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -45,54 +45,54 @@ public class ItemConfig extends YamlConfig implements WrapperConfig<ItemStack>
     }
 
     @Override
-    public ItemStack Unwrap()
+    public ItemStack unwrap()
     {
-        return Unwrap(Text::SetColors);
+        return unwrap(Text::setColors);
     }
 
-    public ItemStack Unwrap(OfflinePlayer player, Replacement... replacements)
+    public ItemStack unwrap(OfflinePlayer player, Replacement... replacements)
     {
-        return Unwrap(s -> Text.Colorize(player, s, replacements));
+        return unwrap(s -> Text.colorize(player, s, replacements));
     }
 
-    public ItemStack Unwrap(OfflinePlayer player, OfflinePlayer player1, Replacement... replacements)
+    public ItemStack unwrap(OfflinePlayer player, OfflinePlayer player1, Replacement... replacements)
     {
-        return Unwrap(s -> Text.Colorize(player, player1, s, replacements));
+        return unwrap(s -> Text.colorize(player, player1, s, replacements));
     }
 
-    public ItemStack Unwrap(IColorizer colorizer)
+    public ItemStack unwrap(IColorizer colorizer)
     {
         ItemStack itemStack = new ItemStack(MaterialData.Material, Amount, MaterialData.Data);
 
-        SetTo(itemStack, colorizer);
+        setTo(itemStack, colorizer);
 
         return itemStack;
     }
 
-    public void SetTo(ItemStack itemStack)
+    public void setTo(ItemStack itemStack)
     {
-        SetTo(itemStack, Text::SetColors);
+        setTo(itemStack, Text::setColors);
     }
 
-    public void SetTo(ItemStack itemStack, OfflinePlayer player, Replacement... replacements)
+    public void setTo(ItemStack itemStack, OfflinePlayer player, Replacement... replacements)
     {
-        SetTo(itemStack, s -> Text.Colorize(player, s, replacements));
+        setTo(itemStack, s -> Text.colorize(player, s, replacements));
     }
 
-    public void SetTo(ItemStack itemStack, OfflinePlayer player, OfflinePlayer player1, Replacement... replacements)
+    public void setTo(ItemStack itemStack, OfflinePlayer player, OfflinePlayer player1, Replacement... replacements)
     {
-        SetTo(itemStack, s -> Text.Colorize(player, player1, s, replacements));
+        setTo(itemStack, s -> Text.colorize(player, player1, s, replacements));
     }
 
-    public void SetTo(ItemStack itemStack, IColorizer colorizer)
+    public void setTo(ItemStack itemStack, IColorizer colorizer)
     {
         String headData = getString("HeadData");
         if(headData != null) setHeadData(itemStack, headData);
 
         ItemMeta itemMeta = itemStack.getItemMeta();
 
-        itemMeta.setDisplayName(colorizer.Colorize(Name));
-        itemMeta.setLore(IColorizer.Colorize(colorizer, Lore));
+        itemMeta.setDisplayName(colorizer.colorize(Name));
+        itemMeta.setLore(IColorizer.colorize(colorizer, Lore));
 
         for (Enchantment enchantment : Enchantments)
         {

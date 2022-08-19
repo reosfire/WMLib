@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class UUIDConverter
 {
-    public static byte[] ToBytes(UUID uuid)
+    public static byte[] toBytes(UUID uuid)
     {
         byte[] converted = new byte[16];
         ByteBuffer.wrap(converted)
@@ -14,7 +14,7 @@ public class UUIDConverter
         return converted;
     }
 
-    public static UUID FromBytes(byte[] bytes)
+    public static UUID fromBytes(byte[] bytes)
     {
         ByteBuffer buffer = ByteBuffer.allocate(16);
         buffer.put(bytes);

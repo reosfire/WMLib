@@ -56,20 +56,20 @@ public class LocationConfig extends YamlConfig implements WrapperConfig<Location
     }
 
     @Override
-    public Location Unwrap()
+    public Location unwrap()
     {
         return yawPitchSet ?
                 new Location(World,
-                        Vector.Unwrap().getX(),
-                        Vector.Unwrap().getY(),
-                        Vector.Unwrap().getZ(), Yaw, Pitch) :
+                        Vector.unwrap().getX(),
+                        Vector.unwrap().getY(),
+                        Vector.unwrap().getZ(), Yaw, Pitch) :
                 new Location(World,
-                        Vector.Unwrap().getX(),
-                        Vector.Unwrap().getY(),
-                        Vector.Unwrap().getZ());
+                        Vector.unwrap().getX(),
+                        Vector.unwrap().getY(),
+                        Vector.unwrap().getZ());
     }
-    public void Teleport(Player player)
+    public void teleport(Player player)
     {
-        player.teleport(Unwrap());
+        player.teleport(unwrap());
     }
 }

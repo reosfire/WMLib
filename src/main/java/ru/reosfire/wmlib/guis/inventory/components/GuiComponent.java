@@ -30,7 +30,7 @@ public abstract class GuiComponent
     private final Set<IClickEventHandler> clickEventHandlers = new HashSet<>();
     public static GuiComponent Create(ComponentConfig config, Gui gui)
     {
-        return creators.get(config.Type).Create(config, gui);
+        return creators.get(config.Type).create(config, gui);
     }
 
     protected final Gui gui;
@@ -41,15 +41,15 @@ public abstract class GuiComponent
     }
     public final void AddComponent(GuiComponent component)
     {
-        gui.AddComponent(component);
+        gui.addComponent(component);
     }
     public final void ReRender(Replacement... replacements)
     {
-        gui.RedrawComponent(this, replacements);
+        gui.redrawComponent(this, replacements);
     }
 
-    public abstract void Register();
-    public void Unregister()
+    public abstract void register();
+    public void unregister()
     {
         for (IClickEventHandler clickEventHandler : clickEventHandlers)
         {
@@ -63,5 +63,5 @@ public abstract class GuiComponent
         clickEventHandlers.add(handler);
     }
 
-    public abstract void RenderTo(Inventory inventory, Replacement... replacements);
+    public abstract void renderTo(Inventory inventory, Replacement... replacements);
 }

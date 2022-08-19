@@ -18,8 +18,8 @@ public class TextComponentConfig extends YamlConfig
 {
     public final String TextContent;
     public final List<TextComponentConfig> Content;
-    public final ru.reosfire.wmlib.yaml.common.wrappers.text.ClickConfig ClickConfig;
-    public final ru.reosfire.wmlib.yaml.common.wrappers.text.HoverConfig HoverConfig;
+    public final ClickConfig ClickConfig;
+    public final HoverConfig HoverConfig;
     public final ChatColor Color;
     public final boolean Bold;
     public final boolean Italic;
@@ -54,35 +54,35 @@ public class TextComponentConfig extends YamlConfig
         Underlined = getBoolean("Underlined", false);
     }
 
-    public void Send(CommandSender receiver, Replacement... replacements)
+    public void send(CommandSender receiver, Replacement... replacements)
     {
         if (receiver instanceof Player)
         {
             Player player = (Player) receiver;
-            player.spigot().sendMessage(Unwrap(player, replacements));
+            player.spigot().sendMessage(unwrap(player, replacements));
         }
         else receiver.sendMessage(toString(replacements));
     }
 
-    public TextComponent Unwrap(OfflinePlayer player, Replacement... replacements)
+    public TextComponent unwrap(OfflinePlayer player, Replacement... replacements)
     {
-        return Unwrap(s -> Text.Colorize(player, s, replacements));
+        return unwrap(s -> Text.colorize(player, s, replacements));
     }
 
-    public TextComponent Unwrap(IColorizer colorizer)
+    public TextComponent unwrap(IColorizer colorizer)
     {
         TextComponent result;
-        if (Content == null) result = new TextComponent(TextComponent.fromLegacyText(colorizer.Colorize(TextContent)));
+        if (Content == null) result = new TextComponent(TextComponent.fromLegacyText(colorizer.colorize(TextContent)));
         else
         {
             TextComponent[] subComponents = new TextComponent[Content.size()];
             for (int i = 0; i < subComponents.length; i++)
-                subComponents[i] = Content.get(i).Unwrap(colorizer);
+                subComponents[i] = Content.get(i).unwrap(colorizer);
             result = new TextComponent(subComponents);
         }
 
-        if (ClickConfig != null) result.setClickEvent(ClickConfig.Unwrap(colorizer));
-        if (HoverConfig != null) result.setHoverEvent(HoverConfig.Unwrap(colorizer));
+        if (ClickConfig != null) result.setClickEvent(ClickConfig.unwrap(colorizer));
+        if (HoverConfig != null) result.setHoverEvent(HoverConfig.unwrap(colorizer));
 
         if (Color != null) result.setColor(Color);
 
@@ -96,7 +96,7 @@ public class TextComponentConfig extends YamlConfig
 
     public String toString(Replacement... replacements)
     {
-        if (TextContent != null) return Text.SetColors(Replacement.Set(TextContent, replacements));
+        if (TextContent != null) return Text.setColors(Replacement.set(TextContent, replacements));
 
         StringBuilder resultBuilder = new StringBuilder();
 
@@ -105,7 +105,7 @@ public class TextComponentConfig extends YamlConfig
             resultBuilder.append(subComponent.toString(replacements));
         }
 
-        return Text.SetColors(resultBuilder.toString());
+        return Text.setColors(resultBuilder.toString());
     }
 
     @Override

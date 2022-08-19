@@ -13,7 +13,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.*;
-import ru.reosfire.wmlib.WMLib;
 import ru.reosfire.wmlib.text.Text;
 import ru.reosfire.wmlib.yaml.common.ScoreBoardConfig;
 
@@ -24,20 +23,20 @@ public class ScoreBoard
     private final ScoreBoardConfig config;
     private final BukkitTask updateTask;
     private final HashMap<Player, Scoreboard> scoreboards;
-    private final ScoreboardEvents scoreboardEvents;
+    private final Events scoreboardEvents;
 
     public ScoreBoard(Plugin plugin, ScoreBoardConfig config)
     {
         this.config = config;
         scoreboards = new HashMap<>();
-        scoreboardEvents = new ScoreboardEvents();
+        scoreboardEvents = new Events();
 
         new BukkitRunnable()
         {
             @Override
             public void run()
             {
-                Update();
+                update();
                 plugin.getServer().getPluginManager().registerEvents(scoreboardEvents,
                         plugin);
             }
@@ -47,21 +46,21 @@ public class ScoreBoard
             @Override
             public void run()
             {
-                Update();
+                update();
             }
         }.runTaskTimer(plugin, 0, config.UpdateInterval);
 
     }
 
-    public void Update()
+    public void update()
     {
         for (Player player : Bukkit.getOnlinePlayers())
         {
-            Update(player);
+            update(player);
         }
     }
 
-    private void Update(Player player)
+    private void update(Player player)
     {
         if (!scoreboards.containsKey(player)) scoreboards.put(player, Bukkit.getScoreboardManager().getNewScoreboard());
         Scoreboard scoreboard = scoreboards.get(player);
@@ -71,7 +70,7 @@ public class ScoreBoard
             objective = scoreboard.registerNewObjective("a", "b");
             objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         }
-        String name = Text.Colorize(player, config.Name);
+        String name = Text.colorize(player, config.Name);
         if (!PlaceholderAPI.containsPlaceholders(name))
         { objective.setDisplayName(name); }
 
@@ -82,7 +81,7 @@ public class ScoreBoard
             score--;
             String teamName = Integer.toString(score);
             Team team = scoreboard.getTeam(teamName);
-            String colorizedLine = Text.Colorize(player, line);
+            String colorizedLine = Text.colorize(player, line);
             String entry = ChatColor.values()[99 - score] + "" + ChatColor.RESET;
             if (PlaceholderAPI.containsPlaceholders(colorizedLine))
             {
@@ -164,12 +163,12 @@ public class ScoreBoard
         }.runTask(plugin);
     }
 
-    private class ScoreboardEvents implements Listener
+    private class Events implements Listener
     {
         @EventHandler
         public void SendOnJoin(PlayerJoinEvent event)
         {
-            Update(event.getPlayer());
+            update(event.getPlayer());
         }
     }
 }

@@ -8,11 +8,11 @@ import org.bukkit.util.Vector;
 
 public class Particle
 {
-    private org.bukkit.Particle Type;
-    private int Count;
+    private final org.bukkit.Particle type;
+    private final int count;
+    private final Object data;
+    private final Vector offSet;
     private Vector RelativeLocation;
-    private Object Data;
-    private Vector OffSet;
 
     public Vector getLocation()
     {
@@ -26,11 +26,11 @@ public class Particle
 
     public Particle(org.bukkit.Particle type, int count, Vector relativeLocation, Object data, Vector offset)
     {
-        Type = type;
-        Count = count;
+        this.type = type;
+        this.count = count;
         RelativeLocation = relativeLocation;
-        Data = data;
-        OffSet = offset;
+        this.data = data;
+        offSet = offset;
     }
 
     public Particle(org.bukkit.Particle type, int count, Vector location, Object data)
@@ -64,77 +64,77 @@ public class Particle
                 color.getBlue() / 256d));
     }
 
-    public void Show(Player player, Vector pivotPoint)
+    public void show(Player player, Vector pivotPoint)
     {
         double x = RelativeLocation.getX() + pivotPoint.getX();
         double y = RelativeLocation.getY() + pivotPoint.getY();
         double z = RelativeLocation.getZ() + pivotPoint.getZ();
-        boolean dataIsNull = Data == null;
-        boolean offSetIsNull = OffSet == null;
+        boolean dataIsNull = data == null;
+        boolean offSetIsNull = offSet == null;
         if (!dataIsNull)
         {
             if (!offSetIsNull)
             {
-                player.spawnParticle(Type, new Location(player.getWorld(), x, y, z), Count, OffSet.getX(),
-                        OffSet.getY(), OffSet.getZ(), Data);
+                player.spawnParticle(type, new Location(player.getWorld(), x, y, z), count, offSet.getX(),
+                        offSet.getY(), offSet.getZ(), data);
             }
             else
             {
-                player.spawnParticle(Type, new Location(player.getWorld(), x, y, z), Count, Data);
+                player.spawnParticle(type, new Location(player.getWorld(), x, y, z), count, data);
             }
         }
         else if (!offSetIsNull)
         {
-            player.spawnParticle(Type, new Location(player.getWorld(), x, y, z), Count, OffSet.getX(), OffSet.getY(),
-                    OffSet.getZ());
+            player.spawnParticle(type, new Location(player.getWorld(), x, y, z), count, offSet.getX(), offSet.getY(),
+                    offSet.getZ());
         }
-        else { player.spawnParticle(Type, new Location(player.getWorld(), x, y, z), Count); }
+        else { player.spawnParticle(type, new Location(player.getWorld(), x, y, z), count); }
     }
 
-    public void Show(World world, Vector pivotPoint)
+    public void show(World world, Vector pivotPoint)
     {
         double x = RelativeLocation.getX() + pivotPoint.getX();
         double y = RelativeLocation.getY() + pivotPoint.getY();
         double z = RelativeLocation.getZ() + pivotPoint.getZ();
-        boolean dataIsNull = Data == null;
-        boolean offSetIsNull = OffSet == null;
+        boolean dataIsNull = data == null;
+        boolean offSetIsNull = offSet == null;
         if (!dataIsNull)
         {
             if (!offSetIsNull)
             {
-                world.spawnParticle(Type, new Location(world, x, y, z), Count, OffSet.getX(), OffSet.getY(),
-                        OffSet.getZ(), Data);
+                world.spawnParticle(type, new Location(world, x, y, z), count, offSet.getX(), offSet.getY(),
+                        offSet.getZ(), data);
             }
             else
             {
-                world.spawnParticle(Type, new Location(world, x, y, z), Count, Data);
+                world.spawnParticle(type, new Location(world, x, y, z), count, data);
             }
         }
         else if (!offSetIsNull)
         {
-            world.spawnParticle(Type, new Location(world, x, y, z), Count, OffSet.getX(), OffSet.getY(), OffSet.getZ());
+            world.spawnParticle(type, new Location(world, x, y, z), count, offSet.getX(), offSet.getY(), offSet.getZ());
         }
-        else { world.spawnParticle(Type, new Location(world, x, y, z), Count); }
+        else { world.spawnParticle(type, new Location(world, x, y, z), count); }
     }
 
-    public void Show(Player player)
+    public void show(Player player)
     {
-        Show(player, new Vector());
+        show(player, new Vector());
     }
 
-    public void Show(Iterable<Player> players)
+    public void show(Iterable<Player> players)
     {
         for (Player p : players)
         {
-            Show(p);
+            show(p);
         }
     }
 
-    public void Show(Iterable<Player> players, Vector translation)
+    public void show(Iterable<Player> players, Vector translation)
     {
         for (Player p : players)
         {
-            Show(p, translation);
+            show(p, translation);
         }
     }
 }

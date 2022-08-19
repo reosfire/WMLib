@@ -28,7 +28,7 @@ public class AnimationOperation
     }
     public void execute(Player player)
     {
-        ru.reosfire.wmlib.yaml.common.Block.SetFor(player, block, materialData);
+        ru.reosfire.wmlib.yaml.common.Block.setFor(player, block, materialData);
     }
 
     public static void execute(WMLib instance, AnimationOperation... operations)

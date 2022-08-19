@@ -17,10 +17,10 @@ public class Area extends YamlConfig
         SecondPoint = new VectorConfig(getSection("SecondPoint"));
     }
 
-    public boolean IsInner(Vector vector)
+    public boolean isInner(Vector vector)
     {
-        Vector minimum = Vector.getMinimum(FirstPoint.Unwrap(), SecondPoint.Unwrap());
-        Vector maximum = Vector.getMaximum(FirstPoint.Unwrap(), SecondPoint.Unwrap());
+        Vector minimum = Vector.getMinimum(FirstPoint.unwrap(), SecondPoint.unwrap());
+        Vector maximum = Vector.getMaximum(FirstPoint.unwrap(), SecondPoint.unwrap());
         return vector.isInAABB(minimum, maximum);
     }
 }

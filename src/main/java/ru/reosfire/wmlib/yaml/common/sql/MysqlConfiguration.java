@@ -14,10 +14,6 @@ public class MysqlConfiguration extends YamlConfig implements ISqlConfiguration
     public final boolean UseSsl, UseUnicode, AutoReconnect, FailOverReadOnly;
     public final int Port, MaxReconnects;
 
-    /**
-     * @param configurationSection Ip, Port(3306), User, Password, Database, UseSsl(false), UseUnicode(true)
-     *                             AutoReconnect(true), FailOverReadOnly(false), MaxReconnects(8)
-     */
     public MysqlConfiguration(ConfigurationSection configurationSection)
     {
         super(configurationSection);
@@ -57,7 +53,7 @@ public class MysqlConfiguration extends YamlConfig implements ISqlConfiguration
     }
 
     @Override
-    public void CheckRequirements() throws SqlRequirementsNotSatisfiedException
+    public void checkRequirements() throws SqlRequirementsNotSatisfiedException
     {
         try
         {

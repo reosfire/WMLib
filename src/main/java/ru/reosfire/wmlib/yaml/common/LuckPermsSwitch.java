@@ -31,27 +31,27 @@ public class LuckPermsSwitch<T extends YamlConfig> extends YamlConfig
         }
     }
 
-    public T GetFor(Group group)
+    public T getFor(Group group)
     {
         return innerConfigurations.get(group);
     }
 
-    public T GetFor(Player player)
+    public T getFor(Player player)
     {
         String primaryGroup = LuckPermsProvider.get().getUserManager().getUser(player.getUniqueId()).getPrimaryGroup();
-        T result = GetFor(LuckPermsProvider.get().getGroupManager().getGroup(primaryGroup));
-        if (result == null) result = GetFor(LuckPermsProvider.get().getGroupManager().getGroup("default"));
+        T result = getFor(LuckPermsProvider.get().getGroupManager().getGroup(primaryGroup));
+        if (result == null) result = getFor(LuckPermsProvider.get().getGroupManager().getGroup("default"));
         return result;
     }
 
-    public static String String(ConfigurationSection section, Group group, String def)
+    public static String string(ConfigurationSection section, Group group, String def)
     {
         return section.getString(group.getName(), def);
     }
 
-    public static String String(ConfigurationSection section, Player player, String def)
+    public static String string(ConfigurationSection section, Player player, String def)
     {
         String primaryGroup = LuckPermsProvider.get().getUserManager().getUser(player.getUniqueId()).getPrimaryGroup();
-        return String(section, LuckPermsProvider.get().getGroupManager().getGroup(primaryGroup), def);
+        return string(section, LuckPermsProvider.get().getGroupManager().getGroup(primaryGroup), def);
     }
 }

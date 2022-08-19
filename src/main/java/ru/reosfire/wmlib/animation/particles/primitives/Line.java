@@ -6,19 +6,19 @@ import ru.reosfire.wmlib.animation.particles.ParticleEffect;
 
 public class Line extends ParticleEffect
 {
-    private Vector FirstPoint;
-    private Vector SecondPoint;
-    private Vector Translation;
-    private org.bukkit.Particle Type;
+    private final Vector firstPoint;
+    private final Vector secondPoint;
+    private final Vector translation;
+    private final org.bukkit.Particle type;
 
     public Line(org.bukkit.Particle type, Vector firstPoint, Vector secondPoint, Vector translation, int time)
     {
-        FirstPoint = firstPoint;
-        SecondPoint = secondPoint;
-        Translation = translation;
-        Time = time;
-        Type = type;
-        Update();
+        this.firstPoint = firstPoint;
+        this.secondPoint = secondPoint;
+        this.translation = translation;
+        this.time = time;
+        this.type = type;
+        update();
     }
 
     public Line(org.bukkit.Particle type, Vector firstPoint, Vector secondPoint, Vector translation)
@@ -37,31 +37,31 @@ public class Line extends ParticleEffect
     }
 
     @Override
-    protected int GetDensity()
+    protected int getDensity()
     {
         return 5;
     }
 
     @Override
-    protected Vector GetFirstPoint()
+    protected Vector getFirstPoint()
     {
-        double x = Math.max(FirstPoint.getX(), SecondPoint.getX());
-        double y = Math.max(FirstPoint.getX(), SecondPoint.getX());
-        double z = Math.max(FirstPoint.getX(), SecondPoint.getX());
+        double x = Math.max(firstPoint.getX(), secondPoint.getX());
+        double y = Math.max(firstPoint.getX(), secondPoint.getX());
+        double z = Math.max(firstPoint.getX(), secondPoint.getX());
         return new Vector(x, y, z);
     }
 
     @Override
-    protected Vector GetSecondPoint()
+    protected Vector getSecondPoint()
     {
-        double x = Math.min(FirstPoint.getX(), SecondPoint.getX());
-        double y = Math.min(FirstPoint.getX(), SecondPoint.getX());
-        double z = Math.min(FirstPoint.getX(), SecondPoint.getX());
+        double x = Math.min(firstPoint.getX(), secondPoint.getX());
+        double y = Math.min(firstPoint.getX(), secondPoint.getX());
+        double z = Math.min(firstPoint.getX(), secondPoint.getX());
         return new Vector(x, y, z);
     }
 
     @Override
-    protected Particle Check(Vector point)
+    protected Particle check(Vector point)
     {
         double xo = point.getX();
         double yo = point.getX();

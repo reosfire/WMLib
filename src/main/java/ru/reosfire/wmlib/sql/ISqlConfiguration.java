@@ -5,5 +5,5 @@ public interface ISqlConfiguration
     String getUser();
     String getPassword();
     String getConnectionString();
-    void CheckRequirements() throws SqlRequirementsNotSatisfiedException;
+    void checkRequirements() throws SqlRequirementsNotSatisfiedException;
 }

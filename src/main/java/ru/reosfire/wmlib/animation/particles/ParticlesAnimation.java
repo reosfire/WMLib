@@ -17,16 +17,16 @@ public class ParticlesAnimation
         Frames = frames;
     }
 
-    public void PlayAnimation(WMLib plugin, Iterable<Player> players, Vector translation)
+    public void playAnimation(WMLib plugin, Iterable<Player> players, Vector translation)
     {
         if (Frames.size() == 0) return;
 
-        int gcdTime = gcd(Frames.stream().mapToInt((frame) -> frame.Time).boxed().collect(Collectors.toList()));
+        int gcdTime = gcd(Frames.stream().mapToInt((frame) -> frame.time).boxed().collect(Collectors.toList()));
         if (gcdTime > 1)
         {
             for (ParticleEffect frame : Frames)
             {
-                frame.Time /= gcdTime;
+                frame.time /= gcdTime;
             }
         }
 
@@ -43,8 +43,8 @@ public class ParticlesAnimation
                 if (beforeNextFrame == 0)
                 {
                     ParticleEffect particleEffect = ((ParticleEffect) finalFrames.toArray()[i]);
-                    particleEffect.Show(players, translation);
-                    beforeNextFrame = ((ParticleEffect) finalFrames.toArray()[i]).Time;
+                    particleEffect.show(players, translation);
+                    beforeNextFrame = ((ParticleEffect) finalFrames.toArray()[i]).time;
                     i++;
                 }
                 else { beforeNextFrame--; }
@@ -53,16 +53,16 @@ public class ParticlesAnimation
         }.runTaskTimer(plugin, 0, gcdTime);
     }
 
-    public void PlayAnimation(WMLib plugin, Player player, Vector translation)
+    public void playAnimation(WMLib plugin, Player player, Vector translation)
     {
         if (Frames.size() == 0) return;
 
-        int gcdTime = gcd(Frames.stream().mapToInt((frame) -> frame.Time).boxed().collect(Collectors.toList()));
+        int gcdTime = gcd(Frames.stream().mapToInt((frame) -> frame.time).boxed().collect(Collectors.toList()));
         if (gcdTime > 1)
         {
             for (ParticleEffect frame : Frames)
             {
-                frame.Time /= gcdTime;
+                frame.time /= gcdTime;
             }
         }
 
@@ -79,8 +79,8 @@ public class ParticlesAnimation
                 if (beforeNextFrame == 0)
                 {
                     ParticleEffect particleEffect = ((ParticleEffect) finalFrames.toArray()[i]);
-                    particleEffect.Show(player, translation);
-                    beforeNextFrame = ((ParticleEffect) finalFrames.toArray()[i]).Time;
+                    particleEffect.show(player, translation);
+                    beforeNextFrame = ((ParticleEffect) finalFrames.toArray()[i]).time;
                     i++;
                 }
                 else { beforeNextFrame--; }
@@ -89,11 +89,11 @@ public class ParticlesAnimation
         }.runTaskTimer(plugin, 0, gcdTime);
     }
 
-    public void ShowAllFramesOnes(Player player, Vector translation)
+    public void showAllFramesOnes(Player player, Vector translation)
     {
         for (ParticleEffect frame : Frames)
         {
-            frame.Show(player, translation);
+            frame.show(player, translation);
         }
     }
 

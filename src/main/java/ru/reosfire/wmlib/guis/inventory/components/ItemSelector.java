@@ -29,13 +29,13 @@ public abstract class ItemSelector extends GuiComponent
         super(gui);
         this.config = config;
     }
-    private void OnClick(InventoryClickEvent event)
+    private void onClick(InventoryClickEvent event)
     {
         if(event.getSlot() != config.Index) return;
         ItemStack cursor = event.getCursor().clone();
         if(isEmptyItem(cursor)) return;
         if(cursor.equals(currentItem)) return;
-        OnItemChange(currentItem, cursor);
+        onItemChange(currentItem, cursor);
         currentItem = cursor;
         ReRender(replacements);
     }
@@ -43,19 +43,19 @@ public abstract class ItemSelector extends GuiComponent
     {
         return item == null || item.getType() == Material.AIR || item.getAmount() == 0;
     }
-    protected abstract void OnItemChange(ItemStack lastItem, ItemStack currentItem);
+    protected abstract void onItemChange(ItemStack lastItem, ItemStack currentItem);
 
     @Override
-    public void Register()
+    public void register()
     {
-        addClickHandler(this::OnClick);
+        addClickHandler(this::onClick);
     }
 
     @Override
-    public void RenderTo(Inventory inventory, Replacement... replacements)
+    public void renderTo(Inventory inventory, Replacement... replacements)
     {
         this.replacements = replacements;
-        ItemStack item = isEmptyItem(currentItem) ? config.DefaultItem.Unwrap(gui.Player, replacements) : currentItem;
+        ItemStack item = isEmptyItem(currentItem) ? config.DefaultItem.unwrap(gui.Player, replacements) : currentItem;
         inventory.setItem(config.Index, item);
     }
 }

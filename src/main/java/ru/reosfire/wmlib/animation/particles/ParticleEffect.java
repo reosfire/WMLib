@@ -7,43 +7,43 @@ import java.util.HashSet;
 
 public abstract class ParticleEffect
 {
-    private HashSet<Particle> Particles;
+    private HashSet<Particle> particles;
 
-    protected abstract int GetDensity();
+    protected abstract int getDensity();
 
-    protected abstract Vector GetFirstPoint();
+    protected abstract Vector getFirstPoint();
 
-    protected abstract Vector GetSecondPoint();
+    protected abstract Vector getSecondPoint();
 
-    private int Density;
-    private Vector FirstPoint;
-    private Vector SecondPoint;
-    protected int Time;
+    private int density;
+    private Vector firstPoint;
+    private Vector secondPoint;
+    protected int time;
 
-    public int GetTime()
+    public int getTime()
     {
-        return Time;
+        return time;
     }
 
-    protected abstract Particle Check(Vector point);
+    protected abstract Particle check(Vector point);
 
-    public void Update()
+    public void update()
     {
-        Density = GetDensity();
-        FirstPoint = GetFirstPoint();
-        SecondPoint = GetSecondPoint();
-        Particles = Load();
+        density = getDensity();
+        firstPoint = getFirstPoint();
+        secondPoint = getSecondPoint();
+        particles = load();
     }
 
-    protected HashSet<Particle> Load()
+    protected HashSet<Particle> load()
     {
-        double stepLength = 1d / Density;
-        double XStart = Math.min(FirstPoint.getX(), SecondPoint.getX());
-        double XEnd = Math.max(FirstPoint.getX(), SecondPoint.getX());
-        double YStart = Math.min(FirstPoint.getY(), SecondPoint.getY());
-        double YEnd = Math.max(FirstPoint.getY(), SecondPoint.getY());
-        double ZStart = Math.min(FirstPoint.getZ(), SecondPoint.getZ());
-        double ZEnd = Math.max(FirstPoint.getZ(), SecondPoint.getZ());
+        double stepLength = 1d / density;
+        double XStart = Math.min(firstPoint.getX(), secondPoint.getX());
+        double XEnd = Math.max(firstPoint.getX(), secondPoint.getX());
+        double YStart = Math.min(firstPoint.getY(), secondPoint.getY());
+        double YEnd = Math.max(firstPoint.getY(), secondPoint.getY());
+        double ZStart = Math.min(firstPoint.getZ(), secondPoint.getZ());
+        double ZEnd = Math.max(firstPoint.getZ(), secondPoint.getZ());
         HashSet<Particle> shownParticles = new HashSet<>();
         for (double x = XStart; x <= XEnd; x += stepLength)
         {
@@ -51,7 +51,7 @@ public abstract class ParticleEffect
             {
                 for (double z = ZStart; z <= ZEnd; z += stepLength)
                 {
-                    Particle checked = Check(new Vector(x, y, z));
+                    Particle checked = check(new Vector(x, y, z));
                     if (checked != null) shownParticles.add(checked);
                 }
             }
@@ -59,12 +59,12 @@ public abstract class ParticleEffect
         return shownParticles;
     }
 
-    public ParticleEffect RotateX(double xa)
+    public ParticleEffect rotateX(double xa)
     {
         double CosX = Math.cos(xa);
         double SinX = Math.sin(xa);
 
-        for (Particle particle : Particles)
+        for (Particle particle : particles)
         {
             double x = particle.getLocation().getX();
             double y = particle.getLocation().getY();
@@ -77,12 +77,12 @@ public abstract class ParticleEffect
         return this;
     }
 
-    public ParticleEffect RotateY(double ya)
+    public ParticleEffect rotateY(double ya)
     {
         double CosY = Math.cos(ya);
         double SinY = Math.sin(ya);
 
-        for (Particle particle : Particles)
+        for (Particle particle : particles)
         {
             double x = particle.getLocation().getX();
             double y = particle.getLocation().getY();
@@ -95,12 +95,12 @@ public abstract class ParticleEffect
         return this;
     }
 
-    public ParticleEffect RotateZ(double za)
+    public ParticleEffect rotateZ(double za)
     {
         double CosZ = Math.cos(za);
         double SinZ = Math.sin(za);
 
-        for (Particle particle : Particles)
+        for (Particle particle : particles)
         {
             double x = particle.getLocation().getX();
             double y = particle.getLocation().getY();
@@ -113,35 +113,35 @@ public abstract class ParticleEffect
         return this;
     }
 
-    public void Show(Player player)
+    public void show(Player player)
     {
-        for (Particle particle : Particles)
+        for (Particle particle : particles)
         {
-            particle.Show(player, player.getLocation().toVector());
+            particle.show(player, player.getLocation().toVector());
         }
     }
 
-    public void Show(Iterable<Player> players)
+    public void show(Iterable<Player> players)
     {
         for (Player player : players)
         {
-            Show(player);
+            show(player);
         }
     }
 
-    public void Show(Player player, Vector translation)
+    public void show(Player player, Vector translation)
     {
-        for (Particle particle : Particles)
+        for (Particle particle : particles)
         {
-            particle.Show(player, translation);
+            particle.show(player, translation);
         }
     }
 
-    public void Show(Iterable<Player> players, Vector translation)
+    public void show(Iterable<Player> players, Vector translation)
     {
         for (Player player : players)
         {
-            Show(player, translation);
+            show(player, translation);
         }
     }
 }

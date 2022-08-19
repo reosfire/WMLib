@@ -9,13 +9,13 @@ import java.util.Set;
 
 public class DefaultEffects
 {
-    private static ParticlesAnimation Teleportation;
+    private static ParticlesAnimation teleportation;
     static
     {
-        Load();
+        load();
     }
 
-    public static void Load()
+    public static void load()
     {
         Set<ParticleEffect> frames = new LinkedHashSet<>();
         for (double i = 0; i < 7; i += 0.2d)
@@ -30,10 +30,10 @@ public class DefaultEffects
         {
             frames.add(new Circle(Particle.REDSTONE, (20 - i) * (20 - i + 1) * 0.05, new Vector(0, i, 0), 0));
         }
-        Teleportation = new ParticlesAnimation(frames);
+        teleportation = new ParticlesAnimation(frames);
     }
 
-    public static ParticlesAnimation Teleportation()
+    public static ParticlesAnimation teleportation()
     {
         Set<ParticleEffect> frames = new LinkedHashSet<>();
         return new ParticlesAnimation(frames);

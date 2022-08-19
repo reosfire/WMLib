@@ -1,10 +1,8 @@
 package ru.reosfire.wmlib.scoreboard;
 
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-import ru.reosfire.wmlib.WMLib;
 import ru.reosfire.wmlib.yaml.common.ScoreBoardConfig;
 
 import java.util.HashMap;
@@ -16,7 +14,7 @@ public class ChangedScoreboard
     private final HashMap<ScoreBoardConfig, Integer> scoreboardTimes = new HashMap<>();
     private final Queue<ScoreBoardConfig> scoreboards = new LinkedList<>();
     private ScoreBoard currentScoreBoard;
-    private NextMover currentNextMover;
+    private nextMover currentNextMover;
     private boolean started = false;
 
     public void AddScoreBoard(ScoreBoardConfig config, int time)
@@ -25,28 +23,28 @@ public class ChangedScoreboard
         scoreboards.add(config);
     }
 
-    public void Start(JavaPlugin plugin)
+    public void start(JavaPlugin plugin)
     {
         if (started) return;
         started = true;
-        MoveNext(plugin);
+        moveNext(plugin);
     }
 
-    private void MoveNext(JavaPlugin plugin)
+    private void moveNext(JavaPlugin plugin)
     {
         ScoreBoardConfig poll = scoreboards.poll();
         if (poll == null)
         {
-            Stop(plugin);
+            stop(plugin);
             return;
         }
         scoreboards.add(poll);
         Integer time = scoreboardTimes.get(poll);
         currentScoreBoard = new ScoreBoard(plugin, poll);
-        currentNextMover = new NextMover(plugin, time);
+        currentNextMover = new nextMover(plugin, time);
     }
 
-    public void Stop(JavaPlugin plugin)
+    public void stop(JavaPlugin plugin)
     {
         if (!started) return;
         started = false;
@@ -54,12 +52,12 @@ public class ChangedScoreboard
         currentNextMover.cancel();
     }
 
-    private class NextMover extends BukkitRunnable
+    private class nextMover extends BukkitRunnable
     {
         private final BukkitTask currentTask;
         private final JavaPlugin plugin;
 
-        public NextMover(JavaPlugin plugin, int delay)
+        public nextMover(JavaPlugin plugin, int delay)
         {
             currentTask = runTaskLater(plugin, delay);
             currentNextMover = this;
@@ -70,7 +68,7 @@ public class ChangedScoreboard
         public void run()
         {
             currentScoreBoard.stop(plugin);
-            MoveNext(plugin);
+            moveNext(plugin);
         }
 
         @Override

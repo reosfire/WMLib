@@ -20,10 +20,6 @@ public class Inventory extends YamlConfig
         return (List<ItemStack>) Items.values();
     }
 
-    /**
-     * @param configurationSection Configuration element whose children are int numbers and could be parsed as Item
-     *                             or children contain "InventoryIndex: int" field.
-     */
     public Inventory(ConfigurationSection configurationSection)
     {
         super(configurationSection);
@@ -34,7 +30,7 @@ public class Inventory extends YamlConfig
         {
             int inventoryIndex;
             ConfigurationSection itemSection = getSection(key);
-            ItemStack itemStack = new ItemConfig(itemSection).Unwrap();
+            ItemStack itemStack = new ItemConfig(itemSection).unwrap();
             try
             {
                 inventoryIndex = Integer.parseInt(key);
@@ -47,7 +43,7 @@ public class Inventory extends YamlConfig
         }
     }
 
-    public void Set(Player player)
+    public void set(Player player)
     {
         PlayerInventory inventory = player.getInventory();
         inventory.clear();
@@ -57,11 +53,11 @@ public class Inventory extends YamlConfig
         }
     }
 
-    public void Set(Iterable<Player> players)
+    public void set(Iterable<Player> players)
     {
         for (Player player : players)
         {
-            Set(player);
+            set(player);
         }
     }
 }

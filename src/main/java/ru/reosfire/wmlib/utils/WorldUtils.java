@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class WorldUtils
 {
-    public static World LoadWorld(String referencePath, String resultPath) throws IOException
+    public static World loadWorld(String referencePath, String resultPath) throws IOException
     {
         File exampleFile = new File(referencePath);
 
@@ -29,7 +29,7 @@ public class WorldUtils
         WorldCreator worldCreator = new WorldCreator(worldFile.getPath());
         return worldCreator.createWorld();
     }
-    public static void DeleteWorld(World world) throws IOException
+    public static void deleteWorld(World world) throws IOException
     {
         File worldFolder = world.getWorldFolder();
         FileUtils.deleteDirectory(worldFolder);

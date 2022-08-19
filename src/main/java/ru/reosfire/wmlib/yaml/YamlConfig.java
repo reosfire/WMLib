@@ -244,12 +244,12 @@ public abstract class YamlConfig
 
     public List<String> getColoredStringList(String path)
     {
-        return Text.SetColors(getStringList(path));
+        return Text.setColors(getStringList(path));
     }
 
     public List<String> getColoredStringList(String path, List<String> def)
     {
-        return Text.SetColors(getStringList(path, def));
+        return Text.setColors(getStringList(path, def));
     }
 
     public List<Integer> getIntegerList(String path)

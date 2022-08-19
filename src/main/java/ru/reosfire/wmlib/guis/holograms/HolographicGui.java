@@ -18,9 +18,9 @@ public class HolographicGui
     public HolographicGui(Player player)
     {
         Player = player;
-        ShowSentence("test string", player.getLocation().add(new Vector(0,0,2)));
+        showSentence("test string", player.getLocation().add(new Vector(0,0,2)));
     }
-    private void ShowSentence(String sentence, Location location)
+    private void showSentence(String sentence, Location location)
     {
         Player.sendMessage("command executed...");
         PacketContainer spawnEntityPacket =

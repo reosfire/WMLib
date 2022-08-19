@@ -47,64 +47,64 @@ public class AnnouncementConfig extends YamlConfig
         ActionBarMessage = configurationSection.getString("ActionBarMessage");
     }
 
-    public void SendMessage(Player player, Replacement... replacements)
+    public void sendMessage(Player player, Replacement... replacements)
     {
         if (Message == null) return;
-        List<String> messages = Text.Colorize(player, Message, replacements);
+        List<String> messages = Text.colorize(player, Message, replacements);
         for (String message : messages)
         {
             player.sendMessage(message);
         }
     }
 
-    public void PlaySound(Player player)
+    public void playSound(Player player)
     {
         if (player == null) return;
         player.playSound(player.getLocation(), Sound, 1, 1);
     }
 
-    public void ShowTitle(Player player, Replacement... replacements)
+    public void showTitle(Player player, Replacement... replacements)
     {
         if (Title == null) return;
-        String title = Text.Colorize(player, Title, replacements);
-        String subtitle = Text.Colorize(player, Subtitle, replacements);
+        String title = Text.colorize(player, Title, replacements);
+        String subtitle = Text.colorize(player, Subtitle, replacements);
         player.sendTitle(title, subtitle, TitleTime / 4, TitleTime / 2, TitleTime / 4);
     }
 
-    public void SendActionBar(Player player, Replacement... replacements)
+    public void sendActionBar(Player player, Replacement... replacements)
     {
         if (ActionBarMessage == null) return;
-        String message = Text.Colorize(player, ActionBarMessage , replacements);
+        String message = Text.colorize(player, ActionBarMessage , replacements);
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
     }
 
-    public void Send(Player player, Replacement... replacements)
+    public void send(Player player, Replacement... replacements)
     {
-        SendMessage(player, replacements);
-        PlaySound(player);
-        ShowTitle(player, replacements);
-        SendActionBar(player);
+        sendMessage(player, replacements);
+        playSound(player);
+        showTitle(player, replacements);
+        sendActionBar(player);
     }
 
-    public <T extends Player> void Send(Iterable<T> players, Replacement... replacements)
+    public <T extends Player> void send(Iterable<T> players, Replacement... replacements)
     {
         for (T player : players)
         {
-            Send(player, replacements);
+            send(player, replacements);
         }
     }
 
-    public <T extends Player> void Send(Iterable<T> players, Player except, Replacement... replacements)
+    public <T extends Player> void send(Iterable<T> players, Player except, Replacement... replacements)
     {
         for (T player : players)
         {
             if (player.getUniqueId() == except.getUniqueId()) continue;
-            Send(player, replacements);
+            send(player, replacements);
         }
     }
 
-    public void Send(Stream<Player> players, Replacement... replacements)
+    public void send(Stream<Player> players, Replacement... replacements)
     {
-        players.forEach(player -> Send(player, replacements));
+        players.forEach(player -> send(player, replacements));
     }
 }

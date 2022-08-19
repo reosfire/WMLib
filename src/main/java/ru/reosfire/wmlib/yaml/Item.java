@@ -31,7 +31,7 @@ public class Item extends YamlConfig
         ItemMeta itemMeta = item.getItemMeta();
 
         String name = getString("Name", null);
-        if(name != null) itemMeta.setDisplayName(Text.SetColors(name));
+        if(name != null) itemMeta.setDisplayName(Text.setColors(name));
 
         if(getBoolean("EnchantmentEnabled"))
         {

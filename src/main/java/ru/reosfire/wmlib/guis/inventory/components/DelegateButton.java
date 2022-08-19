@@ -7,16 +7,16 @@ import ru.reosfire.wmlib.yaml.common.gui.ButtonConfig;
 
 public class DelegateButton extends Button
 {
-    private final IClickEventHandler Delegate;
+    private final IClickEventHandler delegate;
     public DelegateButton(ButtonConfig config, Gui gui, IClickEventHandler delegate)
     {
         super(config, gui);
-        Delegate = delegate;
+        this.delegate = delegate;
     }
 
     @Override
-    protected void OnClick(InventoryClickEvent event)
+    protected void onClick(InventoryClickEvent event)
     {
-        Delegate.Handle(event);
+        delegate.Handle(event);
     }
 }

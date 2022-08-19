@@ -33,7 +33,7 @@ public class PlayerInfo implements IPlayerInfo
         if (nameCache != null) return nameCache;
         PreparedStatement preparedStatement = connection.getConnection().prepareStatement("SELECT Name FROM " +
                 "PlayersAccounts WHERE UUID=?");
-        preparedStatement.setBytes(1, UUIDConverter.ToBytes(playerUuid));
+        preparedStatement.setBytes(1, UUIDConverter.toBytes(playerUuid));
         ResultSet resultSet = preparedStatement.executeQuery();
         String name = null;
         if (resultSet.next())

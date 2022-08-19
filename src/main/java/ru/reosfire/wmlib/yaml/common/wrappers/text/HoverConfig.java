@@ -22,24 +22,24 @@ public class HoverConfig extends YamlConfig implements WrapperConfig<HoverEvent>
         Value = getColoredString("Value");
     }
 
-    public HoverEvent Unwrap(OfflinePlayer player, Replacement... replacements)
+    public HoverEvent unwrap(OfflinePlayer player, Replacement... replacements)
     {
-        return Unwrap(s -> Text.Colorize(player, s, replacements));
+        return unwrap(s -> Text.colorize(player, s, replacements));
     }
 
-    public HoverEvent Unwrap(Replacement... replacements)
+    public HoverEvent unwrap(Replacement... replacements)
     {
-        return Unwrap(s -> Replacement.Set(s, replacements));
+        return unwrap(s -> Replacement.set(s, replacements));
     }
 
     @Override
-    public HoverEvent Unwrap()
+    public HoverEvent unwrap()
     {
         return new HoverEvent(Action, new BaseComponent[] {new TextComponent(Value)});
     }
 
-    public HoverEvent Unwrap(IColorizer colorizer)
+    public HoverEvent unwrap(IColorizer colorizer)
     {
-        return new HoverEvent(Action, new BaseComponent[] {new TextComponent(colorizer.Colorize(Value))});
+        return new HoverEvent(Action, new BaseComponent[] {new TextComponent(colorizer.colorize(Value))});
     }
 }

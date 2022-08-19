@@ -13,53 +13,53 @@ import java.util.List;
 
 public class Switch<T> extends GuiComponent
 {
-    private final SwitchConfig config;
-    private final List<T> Elements;
     protected int elementIndex;
-    private long lastClick;
     protected Replacement[] replacements = new Replacement[0];
+    private final SwitchConfig config;
+    private final List<T> elements;
+    private long lastClick;
 
     public void setElement(int index)
     {
-        if(index < 0 || index >= Elements.size()) throw new IndexOutOfBoundsException();
+        if(index < 0 || index >= elements.size()) throw new IndexOutOfBoundsException();
         T previous = getCurrent();
         elementIndex = index;
 
-        OnSwitch(previous, getCurrent());
+        onSwitch(previous, getCurrent());
     }
     public void setElement(T element)
     {
-        setElement(Elements.indexOf(element));
+        setElement(elements.indexOf(element));
     }
 
     public Switch(SwitchConfig config, Gui gui, List<T> elements)
     {
         super(gui);
-        Elements = elements;
+        this.elements = elements;
         this.config = config;
     }
     public Switch(SwitchConfig config, Gui gui, List<T> elements, int initialElement)
     {
         super(gui);
-        Elements = elements;
+        this.elements = elements;
         this.config = config;
-        if(initialElement < 0 || initialElement >= Elements.size()) throw new IndexOutOfBoundsException();
+        if(initialElement < 0 || initialElement >= this.elements.size()) throw new IndexOutOfBoundsException();
         elementIndex = initialElement;
     }
     public T getCurrent()
     {
-        return Elements.get(elementIndex);
+        return elements.get(elementIndex);
     }
-    protected ItemStack RenderElement(T element, ItemConfig item)
+    protected ItemStack renderElement(T element, ItemConfig item)
     {
-        return item.Unwrap(gui.Player, replacements);
+        return item.unwrap(gui.Player, replacements);
     }
-    protected void OnSwitch(T previousElement, T currentElement)
+    protected void onSwitch(T previousElement, T currentElement)
     {
         ReRender(replacements);
     }
 
-    protected void OnClick(InventoryClickEvent event)
+    protected void onClick(InventoryClickEvent event)
     {
         long nowTime = Instant.now().toEpochMilli();
         if(nowTime - lastClick < config.CoolDown)
@@ -67,26 +67,26 @@ public class Switch<T> extends GuiComponent
 
         T previous = getCurrent();
         int newIndex = elementIndex + 1;
-        elementIndex = newIndex % Elements.size();
-        OnSwitch(previous, getCurrent());
+        elementIndex = newIndex % elements.size();
+        onSwitch(previous, getCurrent());
 
         lastClick = nowTime;
     }
-    private void OnItemClicked(InventoryClickEvent event)
+    private void onItemClicked(InventoryClickEvent event)
     {
         if(event.getSlot() != config.Index) return;
-        OnClick(event);
+        onClick(event);
     }
 
     @Override
-    public void Register()
+    public void register()
     {
-        addClickHandler(this::OnItemClicked);
+        addClickHandler(this::onItemClicked);
     }
     @Override
-    public void RenderTo(Inventory inventory, Replacement... replacements)
+    public void renderTo(Inventory inventory, Replacement... replacements)
     {
-        inventory.setItem(config.Index, RenderElement(Elements.get(elementIndex),
+        inventory.setItem(config.Index, renderElement(elements.get(elementIndex),
                 config.Items.get(elementIndex % config.Items.size())));
         this.replacements = replacements;
     }

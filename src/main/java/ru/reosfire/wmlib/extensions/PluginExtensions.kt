@@ -1,4 +1,4 @@
-package ru.reosfire.wmlib
+package ru.reosfire.wmlib.extensions
 
 import org.bukkit.event.Listener
 import org.bukkit.plugin.Plugin

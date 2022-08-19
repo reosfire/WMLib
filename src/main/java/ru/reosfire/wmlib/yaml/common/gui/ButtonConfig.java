@@ -4,8 +4,8 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.Inventory;
 import ru.reosfire.wmlib.text.Replacement;
-import ru.reosfire.wmlib.yaml.YamlConfig;
 import ru.reosfire.wmlib.yaml.common.wrappers.ItemConfig;
+import ru.reosfire.wmlib.yaml.YamlConfig;
 
 public class ButtonConfig extends YamlConfig
 {
@@ -20,6 +20,6 @@ public class ButtonConfig extends YamlConfig
     }
     public void set(Inventory to, OfflinePlayer player, Replacement... replacements)
     {
-        to.setItem(Index, Item.Unwrap(player, replacements));
+        to.setItem(Index, Item.unwrap(player, replacements));
     }
 }

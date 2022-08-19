@@ -45,7 +45,7 @@ public class PlayerStats implements IPlayerStats
         RegisterStat(stat);
         PreparedStatement preparedStatement =
                 connection.getConnection().prepareStatement("SELECT Value FROM " + stat + " WHERE UUID=?;");
-        preparedStatement.setBytes(1, UUIDConverter.ToBytes(playerUuid));
+        preparedStatement.setBytes(1, UUIDConverter.toBytes(playerUuid));
         ResultSet resultSet = preparedStatement.executeQuery();
         long value;
         if (resultSet.next()) { value = resultSet.getLong("Value"); }
@@ -60,7 +60,7 @@ public class PlayerStats implements IPlayerStats
         PreparedStatement preparedStatement = connection.getConnection().prepareStatement(
                 "INSERT INTO " + stat + " (UUID, Value, Time) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE Value=?, " +
                         "Time=?;");
-        preparedStatement.setBytes(1, UUIDConverter.ToBytes(playerUuid));
+        preparedStatement.setBytes(1, UUIDConverter.toBytes(playerUuid));
         preparedStatement.setLong(2, value);
         preparedStatement.setLong(3, nowMillis);
         preparedStatement.setLong(4, value);

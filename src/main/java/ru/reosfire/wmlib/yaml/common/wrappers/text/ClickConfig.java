@@ -20,23 +20,23 @@ public class ClickConfig extends YamlConfig implements WrapperConfig<ClickEvent>
         Value = getColoredString("Value");
     }
 
-    public ClickEvent Unwrap(OfflinePlayer player, Replacement... replacements)
+    public ClickEvent unwrap(OfflinePlayer player, Replacement... replacements)
     {
-        return Unwrap(s -> Text.Colorize(player, s, replacements));
+        return unwrap(s -> Text.colorize(player, s, replacements));
     }
-    public ClickEvent Unwrap(Replacement... replacements)
+    public ClickEvent unwrap(Replacement... replacements)
     {
-        return Unwrap(s -> Replacement.Set(s, replacements));
+        return unwrap(s -> Replacement.set(s, replacements));
     }
 
     @Override
-    public ClickEvent Unwrap()
+    public ClickEvent unwrap()
     {
         return new ClickEvent(Action, Value);
     }
 
-    public ClickEvent Unwrap(IColorizer colorizer)
+    public ClickEvent unwrap(IColorizer colorizer)
     {
-        return new ClickEvent(Action, colorizer.Colorize(Value));
+        return new ClickEvent(Action, colorizer.colorize(Value));
     }
 }

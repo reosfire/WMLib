@@ -34,7 +34,7 @@ public class FileSqlConfiguration extends YamlConfig implements ISqlConfiguratio
     }
 
     @Override
-    public void CheckRequirements() throws SqlRequirementsNotSatisfiedException
+    public void checkRequirements() throws SqlRequirementsNotSatisfiedException
     {
         try
         {

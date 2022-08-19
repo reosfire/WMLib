@@ -41,11 +41,11 @@ public class Position extends YamlConfig
         return new Vector(X, Y, Z);
     }
 
-    public void Teleport(Player player)
+    public void teleport(Player player)
     {
-        Teleport(player, toLocation(player.getWorld()));
+        teleport(player, toLocation(player.getWorld()));
     }
-    public static void Teleport(Player player, Location to)
+    public static void teleport(Player player, Location to)
     {
         boolean allowFlight = player.getAllowFlight();
         if (!allowFlight) player.setAllowFlight(true);

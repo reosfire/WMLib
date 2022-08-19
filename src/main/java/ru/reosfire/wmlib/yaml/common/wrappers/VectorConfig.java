@@ -22,15 +22,15 @@ public class VectorConfig extends YamlConfig implements WrapperConfig<Vector>
     }
 
     @Override
-    public Vector Unwrap()
+    public Vector unwrap()
     {
         return new Vector(X, Y, Z);
     }
     public Location Unwrap(World world)
     {
-        return Unwrap().toLocation(world);
+        return unwrap().toLocation(world);
     }
-    public void Teleport(Player player)
+    public void teleport(Player player)
     {
         player.teleport(Unwrap(player.getWorld()));
     }

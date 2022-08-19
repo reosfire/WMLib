@@ -32,7 +32,7 @@ public class PersonalityManager
     {
         PreparedStatement preparedStatement = connection.getConnection().prepareStatement(
                 "INSERT INTO PlayersAccounts (UUID, Name) VALUES (?, ?) ON DUPLICATE KEY UPDATE UUID=UUID;");
-        preparedStatement.setBytes(1, UUIDConverter.ToBytes(player.getUniqueId()));
+        preparedStatement.setBytes(1, UUIDConverter.toBytes(player.getUniqueId()));
         preparedStatement.setString(2, player.getName());
         preparedStatement.executeUpdate();
     }
@@ -71,7 +71,7 @@ public class PersonalityManager
         while (resultSet.next())
         {
             long value = resultSet.getLong("Value");
-            UUID uuid = UUIDConverter.FromBytes(resultSet.getBytes("UUID"));
+            UUID uuid = UUIDConverter.fromBytes(resultSet.getBytes("UUID"));
             PlayerStat playerStat = new PlayerStat(stat, value, uuid);
             players.add(playerStat);
         }

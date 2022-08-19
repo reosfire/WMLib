@@ -26,7 +26,7 @@ public class SqlConnection
 
             try
             {
-                configuration.CheckRequirements();
+                configuration.checkRequirements();
             }
             catch (SqlRequirementsNotSatisfiedException e)
             {
@@ -110,7 +110,7 @@ public class SqlConnection
 
         for (int i = 0; i < values.length; i++)
         {
-            preparedStatement.setObject(i + 1, values[i].Value);
+            preparedStatement.setObject(i + 1, values[i].value);
         }
 
         preparedStatement.executeUpdate();
@@ -121,7 +121,7 @@ public class SqlConnection
         request.append(" ON CONFLICT(").append(keyColumn).append(") DO UPDATE SET ");
         for (int i = 0; i < values.length; i++)
         {
-            request.append(values[i].Column).append("=?");
+            request.append(values[i].column).append("=?");
             if (i + 1 < values.length) request.append(", ");
         }
         request.append(";");
@@ -129,7 +129,7 @@ public class SqlConnection
 
         for (int i = 0; i < values.length * 2; i++)
         {
-            preparedStatement.setObject(i + 1, values[i % values.length].Value);
+            preparedStatement.setObject(i + 1, values[i % values.length].value);
         }
 
         preparedStatement.executeUpdate();
@@ -139,7 +139,7 @@ public class SqlConnection
         StringBuilder request = new StringBuilder("INSERT INTO ").append(table).append(" (");
         for (int i = 0; i < values.length; i++)
         {
-            request.append(values[i].Column);
+            request.append(values[i].column);
             if (i + 1 < values.length) request.append(", ");
         }
         request.append(") VALUES (");

@@ -13,16 +13,16 @@ public class RawItem extends GuiComponent
         super(gui);
         Config = config;
     }
-    public void RenderTo(Inventory inventory, Replacement... replacements)
+    public void renderTo(Inventory inventory, Replacement... replacements)
     {
         for (Integer index : Config.Indexes)
         {
-            inventory.setItem(index, Config.Item.Unwrap(gui.Player, replacements));
+            inventory.setItem(index, Config.Item.unwrap(gui.Player, replacements));
         }
     }
 
     @Override
-    public void Register()
+    public void register()
     {
 
     }

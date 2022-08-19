@@ -7,17 +7,17 @@ import ru.reosfire.wmlib.animation.particles.ParticleEffect;
 
 public class Circle extends ParticleEffect
 {
-    private double Radius;
-    private Vector Translation;
-    private org.bukkit.Particle Type;
+    private final double radius;
+    private final Vector translation;
+    private final org.bukkit.Particle type;
 
     public Circle(org.bukkit.Particle type, double radius, Vector translation, int time)
     {
-        Radius = radius;
-        Translation = translation;
-        Time = time;
-        Type = type;
-        Update();
+        this.radius = radius;
+        this.translation = translation;
+        this.time = time;
+        this.type = type;
+        update();
     }
 
     public Circle(org.bukkit.Particle type, double radius, Vector translation)
@@ -36,32 +36,32 @@ public class Circle extends ParticleEffect
     }
 
     @Override
-    protected int GetDensity()
+    protected int getDensity()
     {
         return 5;
     }
 
     @Override
-    protected Vector GetFirstPoint()
+    protected Vector getFirstPoint()
     {
-        return new Vector(Radius + Translation.getX(), Translation.getY(), Radius + Translation.getX());
+        return new Vector(radius + translation.getX(), translation.getY(), radius + translation.getX());
     }
 
     @Override
-    protected Vector GetSecondPoint()
+    protected Vector getSecondPoint()
     {
-        return new Vector((Radius + Translation.getX()) * -1, Translation.getY(), (Radius + Translation.getX()) * -1);
+        return new Vector((radius + translation.getX()) * -1, translation.getY(), (radius + translation.getX()) * -1);
     }
 
     @Override
-    protected Particle Check(Vector point)
+    protected Particle check(Vector point)
     {
-        if (Radius == 0) return null;
+        if (radius == 0) return null;
         double lengthFromCenter =
-                Math.sqrt(Math.pow(point.getX() - Translation.getX(), 2) + Math.pow(point.getY() - Translation.getY()
-                        , 2) + Math.pow(point.getZ() - Translation.getZ(), 2));
+                Math.sqrt(Math.pow(point.getX() - translation.getX(), 2) + Math.pow(point.getY() - translation.getY()
+                        , 2) + Math.pow(point.getZ() - translation.getZ(), 2));
         boolean isInner =
-                (lengthFromCenter <= Radius) && (lengthFromCenter >= (Radius - (1d / GetDensity() * Math.sqrt(2))));
-        return isInner ? new Particle(Type, point, Color.fromRGB(100, 255, 0)) : null;
+                (lengthFromCenter <= radius) && (lengthFromCenter >= (radius - (1d / getDensity() * Math.sqrt(2))));
+        return isInner ? new Particle(type, point, Color.fromRGB(100, 255, 0)) : null;
     }
 }

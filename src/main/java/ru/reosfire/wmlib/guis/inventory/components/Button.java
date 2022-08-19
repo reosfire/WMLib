@@ -15,27 +15,27 @@ public abstract class Button extends GuiComponent
         this.config = config;
     }
 
-    protected abstract void OnClick(InventoryClickEvent event);
-    private void OnItemClicked(InventoryClickEvent event)
+    protected abstract void onClick(InventoryClickEvent event);
+    private void onItemClicked(InventoryClickEvent event)
     {
         if(event.getSlot() != config.Index) return;
-        OnClick(event);
+        onClick(event);
     }
     @Override
-    public void Register()
+    public void register()
     {
-        addClickHandler(this::OnItemClicked);
+        addClickHandler(this::onItemClicked);
     }
     @Override
-    public void Unregister()
+    public void unregister()
     {
-        super.Unregister();
+        super.unregister();
         gui.getInventory().setItem(config.Index, null);
     }
 
     @Override
-    public void RenderTo(Inventory inventory, Replacement... replacements)
+    public void renderTo(Inventory inventory, Replacement... replacements)
     {
-        inventory.setItem(config.Index, config.Item.Unwrap(gui.Player, replacements));
+        inventory.setItem(config.Index, config.Item.unwrap(gui.Player, replacements));
     }
 }

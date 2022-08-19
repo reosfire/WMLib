@@ -23,7 +23,7 @@ public class MessageListener implements Listener
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    public MessageListener OnMessage(MessageReceiver receiver)
+    public MessageListener onMessage(MessageReceiver receiver)
     {
         if(currentReceiver == null)
             currentReceiver = receiver;
@@ -31,56 +31,56 @@ public class MessageListener implements Listener
             messageReceivers.add(receiver);
         return this;
     }
-    public MessageListener OnCancel(CancellationHandler handler)
+    public MessageListener onCancel(CancellationHandler handler)
     {
         cancellationHandlers.add(handler);
         return this;
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    private void OnCommand(PlayerCommandPreprocessEvent event)
+    private void onCommand(PlayerCommandPreprocessEvent event)
     {
         if(!event.getPlayer().getUniqueId().equals(player)) return;
         event.setCancelled(true);
         if (event.getMessage().equalsIgnoreCase("cancel"))
-            Cancel();
+            cancel();
         else
-            currentReceiver.OnMessage(event.getMessage(), this);
+            currentReceiver.onMessage(event.getMessage(), this);
     }
     @EventHandler(priority = EventPriority.LOWEST)
-    private void OnMessage(AsyncPlayerChatEvent event)
+    private void onMessage(AsyncPlayerChatEvent event)
     {
         if (!event.getPlayer().getUniqueId().equals(player)) return;
         event.setCancelled(true);
         if (event.getMessage().equalsIgnoreCase("cancel"))
-            Cancel();
+            cancel();
         else
-            currentReceiver.OnMessage(event.getMessage(), this);
+            currentReceiver.onMessage(event.getMessage(), this);
     }
     @EventHandler
-    private void OnLeave(PlayerQuitEvent event)
+    private void onLeave(PlayerQuitEvent event)
     {
         if(event.getPlayer().getUniqueId() != player) return;
-        UnregisterListeners();
+        unregisterListeners();
     }
 
-    public void UnregisterListeners()
+    public void unregisterListeners()
     {
         AsyncPlayerChatEvent.getHandlerList().unregister(this);
         PlayerCommandPreprocessEvent.getHandlerList().unregister(this);
     }
-    private void Cancel()
+    private void cancel()
     {
-        UnregisterListeners();
+        unregisterListeners();
         for (CancellationHandler cancellationHandler : cancellationHandlers)
         {
-            cancellationHandler.OnCancel(this);
+            cancellationHandler.onCancel(this);
         }
     }
-    public void MoveNext()
+    public void moveNext()
     {
         currentReceiver = messageReceivers.pollFirst();
         if(currentReceiver == null)
-            Cancel();
+            cancel();
     }
 }

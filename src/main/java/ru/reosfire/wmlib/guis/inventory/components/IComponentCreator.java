@@ -5,5 +5,5 @@ import ru.reosfire.wmlib.yaml.common.gui.ComponentConfig;
 
 public interface IComponentCreator
 {
-    GuiComponent Create(ComponentConfig config, Gui gui);
+    GuiComponent create(ComponentConfig config, Gui gui);
 }

@@ -14,11 +14,11 @@ public class MultilineMessageConfig
         Messages = messages;
     }
 
-    public void Send(CommandSender sender, Replacement... replacements)
+    public void send(CommandSender sender, Replacement... replacements)
     {
         for (TextComponentConfig message : Messages)
         {
-            message.Send(sender, replacements);
+            message.send(sender, replacements);
         }
     }
 }

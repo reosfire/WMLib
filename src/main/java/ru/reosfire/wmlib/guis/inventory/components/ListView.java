@@ -49,20 +49,20 @@ public abstract class ListView<T> extends GuiComponent
         OnElementClick(IndexesData.get(event.getSlot()), event);
     }
     @Override
-    public void Register()
+    public void register()
     {
         backwardButton = new BackwardButton();
-        gui.AddComponent(backwardButton);
+        gui.addComponent(backwardButton);
         forwardButton = new ForwardButton();
-        gui.AddComponent(forwardButton);
+        gui.addComponent(forwardButton);
         addClickHandler(this::OnMenuItemClicked);
     }
     @Override
-    public void Unregister()
+    public void unregister()
     {
-        super.Unregister();
-        gui.RemoveComponent(forwardButton);
-        gui.RemoveComponent(backwardButton);
+        super.unregister();
+        gui.removeComponent(forwardButton);
+        gui.removeComponent(backwardButton);
     }
     protected void OnElementClick(T element, InventoryClickEvent event)
     {
@@ -77,7 +77,7 @@ public abstract class ListView<T> extends GuiComponent
     }
 
     @Override
-    public void RenderTo(org.bukkit.inventory.Inventory inventory, Replacement... replacements)
+    public void renderTo(org.bukkit.inventory.Inventory inventory, Replacement... replacements)
     {
         List<T> dataPage = getDataPage(getPage());
         for (int i = 0; i < Indexes.size(); i++)
@@ -108,7 +108,7 @@ public abstract class ListView<T> extends GuiComponent
         }
 
         @Override
-        protected void OnClick(InventoryClickEvent event)
+        protected void onClick(InventoryClickEvent event)
         {
             index--;
             ListView.this.ReRender();
@@ -122,7 +122,7 @@ public abstract class ListView<T> extends GuiComponent
         }
 
         @Override
-        protected void OnClick(InventoryClickEvent event)
+        protected void onClick(InventoryClickEvent event)
         {
             index++;
             ListView.this.ReRender();

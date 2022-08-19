@@ -5,27 +5,27 @@ import java.util.List;
 
 public interface IColorizer
 {
-    String Colorize(String string);
+    String colorize(String string);
 
-    static String Colorize(IColorizer colorizer, String input)
+    static String colorize(IColorizer colorizer, String input)
     {
-        return colorizer.Colorize(input);
+        return colorizer.colorize(input);
     }
-    static List<String> Colorize(IColorizer colorizer, List<String> inputs)
+    static List<String> colorize(IColorizer colorizer, List<String> inputs)
     {
         List<String> result = new ArrayList<>(inputs.size());
         for (String input : inputs)
         {
-            result.add(Colorize(colorizer, input));
+            result.add(colorize(colorizer, input));
         }
         return result;
     }
-    static List<String> Colorize(IColorizer colorizer, String... inputs)
+    static List<String> colorize(IColorizer colorizer, String... inputs)
     {
         List<String> result = new ArrayList<>(inputs.length);
         for (String input : inputs)
         {
-            result.add(Colorize(colorizer, input));
+            result.add(colorize(colorizer, input));
         }
         return result;
     }

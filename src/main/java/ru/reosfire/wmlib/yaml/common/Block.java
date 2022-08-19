@@ -36,23 +36,23 @@ public class Block extends YamlConfig
         Data = (byte) configurationSection.getInt("Data");
     }
 
-    public boolean Equals(org.bukkit.block.Block block)
+    public boolean equals(org.bukkit.block.Block block)
     {
         return (Material == block.getType()) && (Data == block.getData());
     }
 
-    public void Set(Location location)
+    public void set(Location location)
     {
-        Set(location.getBlock());
+        set(location.getBlock());
     }
 
-    public void Set(org.bukkit.block.Block block)
+    public void set(org.bukkit.block.Block block)
     {
         block.setType(Material);
         block.setData(Data);
     }
 
-    public void Set(org.bukkit.block.Block block, boolean applyPhysics)
+    public void set(org.bukkit.block.Block block, boolean applyPhysics)
     {
         block.setType(Material, applyPhysics);
         block.setData(Data, applyPhysics);
@@ -87,7 +87,7 @@ public class Block extends YamlConfig
         NMSSet(block.getLocation(), materialData);
     }
 
-    public static void SetFor(Player player, org.bukkit.block.Block block, MaterialData materialData)
+    public static void setFor(Player player, org.bukkit.block.Block block, MaterialData materialData)
     {
         ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
         PacketContainer packet = protocolManager.createPacket(PacketType.Play.Server.BLOCK_CHANGE);
@@ -105,7 +105,7 @@ public class Block extends YamlConfig
         }
     }
 
-    public static void CrackFor(Player player, org.bukkit.block.Block block, int level, int entityId)
+    public static void crackFor(Player player, org.bukkit.block.Block block, int level, int entityId)
     {
         ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
         PacketContainer packet = protocolManager.createPacket(PacketType.Play.Server.BLOCK_BREAK_ANIMATION);
@@ -124,11 +124,11 @@ public class Block extends YamlConfig
         }
     }
 
-    public static <T extends Player> void CrackFor(Iterable<T> players, org.bukkit.block.Block block, int level, int entityId)
+    public static <T extends Player> void crackFor(Iterable<T> players, org.bukkit.block.Block block, int level, int entityId)
     {
         for (T player : players)
         {
-            CrackFor(player, block, level, entityId);
+            crackFor(player, block, level, entityId);
         }
     }
 }

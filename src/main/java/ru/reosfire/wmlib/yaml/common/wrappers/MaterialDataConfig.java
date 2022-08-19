@@ -17,7 +17,7 @@ public class MaterialDataConfig extends YamlConfig implements WrapperConfig<Mate
     }
 
     @Override
-    public MaterialData Unwrap()
+    public MaterialData unwrap()
     {
         try
         {
