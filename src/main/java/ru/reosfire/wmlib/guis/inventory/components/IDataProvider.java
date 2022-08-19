@@ -1,4 +1,4 @@
-package ru.reosfire.wmlib.guis.Inventory.Components;
+package ru.reosfire.wmlib.guis.inventory.components;
 
 import java.util.List;
 

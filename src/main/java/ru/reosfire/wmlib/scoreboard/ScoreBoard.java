@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.*;
-import ru.reosfire.wmlib.Startup;
+import ru.reosfire.wmlib.WMLib;
 import ru.reosfire.wmlib.text.Text;
 import ru.reosfire.wmlib.yaml.common.ScoreBoardConfig;
 
@@ -36,10 +36,10 @@ public class ScoreBoard
             public void run()
             {
                 Update();
-                Startup.getInstance().getServer().getPluginManager().registerEvents(scoreboardEvents,
-                        Startup.getInstance());
+                WMLib.getInstance().getServer().getPluginManager().registerEvents(scoreboardEvents,
+                        WMLib.getInstance());
             }
-        }.runTask(Startup.getInstance());
+        }.runTask(WMLib.getInstance());
         updateTask = new BukkitRunnable()
         {
             @Override
@@ -47,7 +47,7 @@ public class ScoreBoard
             {
                 Update();
             }
-        }.runTaskTimer(Startup.getInstance(), 0, config.UpdateInterval);
+        }.runTaskTimer(WMLib.getInstance(), 0, config.UpdateInterval);
 
     }
 
@@ -159,7 +159,7 @@ public class ScoreBoard
                 HandlerList.unregisterAll(scoreboardEvents);
                 scoreboards.clear();
             }
-        }.runTask(Startup.getInstance());
+        }.runTask(WMLib.getInstance());
     }
 
     private class ScoreboardEvents implements Listener

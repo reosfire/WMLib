@@ -4,7 +4,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.material.MaterialData;
 import org.bukkit.scheduler.BukkitRunnable;
-import ru.reosfire.wmlib.Startup;
+import ru.reosfire.wmlib.WMLib;
 
 public class AnimationOperation
 {
@@ -43,6 +43,6 @@ public class AnimationOperation
                     operation.Execute();
                 }
             }
-        }.runTask(Startup.getInstance());
+        }.runTask(WMLib.getInstance());
     }
 }

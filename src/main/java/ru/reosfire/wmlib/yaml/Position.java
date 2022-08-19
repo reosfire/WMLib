@@ -15,9 +15,6 @@ public class Position extends YamlConfig
     public final float Pitch;
     private boolean yawPitchSet;
 
-    /**
-     * @param configurationSection (X, Y, Z) : double (Yaw, Pitch) : double
-     */
     public Position(ConfigurationSection configurationSection)
     {
         super(configurationSection);
@@ -25,8 +22,8 @@ public class Position extends YamlConfig
         Y = getDouble("Y");
         Z = getDouble("Z");
         String yaw = getString("Yaw");
-        String pitch  = getString("Pitch");
-        if(!(yaw == null || pitch == null))
+        String pitch = getString("Pitch");
+        if (!(yaw == null || pitch == null))
         {
             Yaw = Float.parseFloat(yaw);
             Pitch = Float.parseFloat(pitch);
@@ -39,14 +36,11 @@ public class Position extends YamlConfig
         }
     }
 
-    public Location toLocation(World world)
-    {
-        return yawPitchSet ? new Location(world, X, Y, Z, Yaw, Pitch) : new Location(world, X, Y, Z);
-    }
     public Vector toVector()
     {
         return new Vector(X, Y, Z);
     }
+
     public void Teleport(Player player)
     {
         Teleport(player, toLocation(player.getWorld()));
@@ -54,8 +48,13 @@ public class Position extends YamlConfig
     public static void Teleport(Player player, Location to)
     {
         boolean allowFlight = player.getAllowFlight();
-        if(!allowFlight) player.setAllowFlight(true);
+        if (!allowFlight) player.setAllowFlight(true);
         player.teleport(to);
-        if(!allowFlight) player.setAllowFlight(false);
+        if (!allowFlight) player.setAllowFlight(false);
+    }
+
+    public Location toLocation(World world)
+    {
+        return yawPitchSet ? new Location(world, X, Y, Z, Yaw, Pitch) : new Location(world, X, Y, Z);
     }
 }

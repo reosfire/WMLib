@@ -1,4 +1,4 @@
-package ru.reosfire.wmlib.guis.Inventory;
+package ru.reosfire.wmlib.guis.inventory;
 
 public interface ICloseHandler
 {

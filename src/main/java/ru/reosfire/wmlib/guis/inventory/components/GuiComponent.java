@@ -1,8 +1,8 @@
-package ru.reosfire.wmlib.guis.Inventory.Components;
+package ru.reosfire.wmlib.guis.inventory.components;
 
 import org.bukkit.inventory.Inventory;
-import ru.reosfire.wmlib.guis.Inventory.Gui;
-import ru.reosfire.wmlib.guis.Inventory.IClickEventHandler;
+import ru.reosfire.wmlib.guis.inventory.Gui;
+import ru.reosfire.wmlib.guis.inventory.IClickEventHandler;
 import ru.reosfire.wmlib.text.Replacement;
 import ru.reosfire.wmlib.yaml.common.gui.CommandButtonConfig;
 import ru.reosfire.wmlib.yaml.common.gui.ComponentConfig;

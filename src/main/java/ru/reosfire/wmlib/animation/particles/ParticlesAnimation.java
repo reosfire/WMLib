@@ -3,7 +3,7 @@ package ru.reosfire.wmlib.animation.particles;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-import ru.reosfire.wmlib.Startup;
+import ru.reosfire.wmlib.WMLib;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -50,7 +50,7 @@ public class ParticlesAnimation
                 else { beforeNextFrame--; }
                 if (!(i < finalFrames.size())) cancel();
             }
-        }.runTaskTimer(Startup.getInstance(), 0, gcdTime);
+        }.runTaskTimer(WMLib.getInstance(), 0, gcdTime);
     }
 
     public void PlayAnimation(Player player, Vector translation)
@@ -86,7 +86,7 @@ public class ParticlesAnimation
                 else { beforeNextFrame--; }
                 if (!(i < finalFrames.size())) cancel();
             }
-        }.runTaskTimer(Startup.getInstance(), 0, gcdTime);
+        }.runTaskTimer(WMLib.getInstance(), 0, gcdTime);
     }
 
     public void ShowAllFramesOnes(Player player, Vector translation)

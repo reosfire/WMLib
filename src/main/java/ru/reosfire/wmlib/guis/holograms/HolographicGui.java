@@ -1,4 +1,4 @@
-package ru.reosfire.wmlib.guis.Holograms;
+package ru.reosfire.wmlib.guis.holograms;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;

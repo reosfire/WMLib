@@ -17,33 +17,33 @@ import java.util.*;
 
 public abstract class YamlConfig
 {
-    public static <T extends YamlConfig> T Create(ConfigurationSection configurationSection, IConfigCreator<T> creator)
+    public static <T extends YamlConfig> T create(ConfigurationSection configurationSection, IConfigCreator<T> creator)
     {
-        return creator.Create(configurationSection);
+        return creator.create(configurationSection);
     }
 
-    public static YamlConfiguration LoadOrCreate(String resultFileName, String defaultConfigurationResource,
+    public static YamlConfiguration loadOrCreate(String resultFileName, String defaultConfigurationResource,
                                                  JavaPlugin plugin) throws IOException, InvalidConfigurationException
     {
         YamlConfiguration config = new YamlConfiguration();
-        config.load(LoadOrCreateFile(resultFileName, defaultConfigurationResource, plugin));
+        config.load(loadOrCreateFile(resultFileName, defaultConfigurationResource, plugin));
         return config;
     }
 
-    public static YamlConfiguration LoadOrCreate(File file) throws IOException, InvalidConfigurationException
+    public static YamlConfiguration loadOrCreate(File file) throws IOException, InvalidConfigurationException
     {
         YamlConfiguration config = new YamlConfiguration();
         config.load(file);
         return config;
     }
 
-    public static YamlConfiguration LoadOrCreate(String fileName, JavaPlugin plugin) throws IOException,
+    public static YamlConfiguration loadOrCreate(String fileName, JavaPlugin plugin) throws IOException,
             InvalidConfigurationException
     {
-        return LoadOrCreate(fileName, fileName, plugin);
+        return loadOrCreate(fileName, fileName, plugin);
     }
 
-    public static File LoadOrCreateFile(String resultFileName, String defaultConfigurationResource,
+    public static File loadOrCreateFile(String resultFileName, String defaultConfigurationResource,
                                         JavaPlugin plugin) throws IOException
     {
         File configFile = new File(plugin.getDataFolder(), resultFileName);
@@ -61,9 +61,9 @@ public abstract class YamlConfig
         return configFile;
     }
 
-    public static File LoadOrCreateFile(String fileName, JavaPlugin plugin) throws IOException
+    public static File loadOrCreateFile(String fileName, JavaPlugin plugin) throws IOException
     {
-        return LoadOrCreateFile(fileName, fileName, plugin);
+        return loadOrCreateFile(fileName, fileName, plugin);
     }
 
     protected final ConfigurationSection configurationSection;
@@ -97,7 +97,7 @@ public abstract class YamlConfig
         {
             try
             {
-                result.add(creator.Create(section.getConfigurationSection(key)));
+                result.add(creator.create(section.getConfigurationSection(key)));
             }
             catch (Exception e)
             {
@@ -135,7 +135,7 @@ public abstract class YamlConfig
         {
             try
             {
-                result.put(key, creator.Create(section.getConfigurationSection(key)));
+                result.put(key, creator.create(section.getConfigurationSection(key)));
             }
             catch (Exception e)
             {

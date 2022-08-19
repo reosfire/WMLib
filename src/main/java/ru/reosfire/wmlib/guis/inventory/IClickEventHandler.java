@@ -1,4 +1,4 @@
-package ru.reosfire.wmlib.guis.Inventory;
+package ru.reosfire.wmlib.guis.inventory;
 
 import org.bukkit.event.inventory.InventoryClickEvent;
 

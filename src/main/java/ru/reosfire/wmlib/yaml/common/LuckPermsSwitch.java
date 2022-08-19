@@ -21,7 +21,7 @@ public class LuckPermsSwitch<T extends YamlConfig> extends YamlConfig
         for (String key : configurationSection.getKeys(false))
         {
             String[] groups = key.split(",");
-            T config = creator.Create(getSection(key));
+            T config = creator.create(getSection(key));
             for (String groupName : groups)
             {
                 Group group = groupManager.getGroup(groupName);

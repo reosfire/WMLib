@@ -1,4 +1,4 @@
-package ru.reosfire.wmlib.guis.Inventory;
+package ru.reosfire.wmlib.guis.inventory;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -13,7 +13,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import ru.reosfire.wmlib.guis.Inventory.Components.GuiComponent;
+import ru.reosfire.wmlib.guis.inventory.components.GuiComponent;
 import ru.reosfire.wmlib.text.Replacement;
 import ru.reosfire.wmlib.text.Text;
 import ru.reosfire.wmlib.yaml.common.gui.ComponentConfig;

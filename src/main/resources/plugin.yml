@@ -1,8 +1,9 @@
 name: WMLib
 version: ${project.version}
 api-version: 1.13
-main: ru.reosfire.WMLib.Startup
+main: ru.reosfire.wmlib.WMLib
 authors: [ reosfire ]
+load: STARTUP
 softdepend:
   - PlaceholderAPI
   - LuckPerms
