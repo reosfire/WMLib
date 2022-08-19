@@ -17,7 +17,7 @@ public class ParticlesAnimation
         Frames = frames;
     }
 
-    public void PlayAnimation(Iterable<Player> players, Vector translation)
+    public void PlayAnimation(WMLib plugin, Iterable<Player> players, Vector translation)
     {
         if (Frames.size() == 0) return;
 
@@ -50,10 +50,10 @@ public class ParticlesAnimation
                 else { beforeNextFrame--; }
                 if (!(i < finalFrames.size())) cancel();
             }
-        }.runTaskTimer(WMLib.getInstance(), 0, gcdTime);
+        }.runTaskTimer(plugin, 0, gcdTime);
     }
 
-    public void PlayAnimation(Player player, Vector translation)
+    public void PlayAnimation(WMLib plugin, Player player, Vector translation)
     {
         if (Frames.size() == 0) return;
 
@@ -86,7 +86,7 @@ public class ParticlesAnimation
                 else { beforeNextFrame--; }
                 if (!(i < finalFrames.size())) cancel();
             }
-        }.runTaskTimer(WMLib.getInstance(), 0, gcdTime);
+        }.runTaskTimer(plugin, 0, gcdTime);
     }
 
     public void ShowAllFramesOnes(Player player, Vector translation)

@@ -22,16 +22,16 @@ public class AnimationOperation
         this(block, blockData.getMaterialData());
     }
 
-    public void Execute()
+    public void execute()
     {
         ru.reosfire.wmlib.yaml.common.Block.NMSSet(block, materialData);
     }
-    public void Execute(Player player)
+    public void execute(Player player)
     {
         ru.reosfire.wmlib.yaml.common.Block.SetFor(player, block, materialData);
     }
 
-    public static void Execute(AnimationOperation... operations)
+    public static void execute(WMLib instance, AnimationOperation... operations)
     {
         new BukkitRunnable()
         {
@@ -40,9 +40,9 @@ public class AnimationOperation
             {
                 for (AnimationOperation operation : operations)
                 {
-                    operation.Execute();
+                    operation.execute();
                 }
             }
-        }.runTask(WMLib.getInstance());
+        }.runTask(instance);
     }
 }

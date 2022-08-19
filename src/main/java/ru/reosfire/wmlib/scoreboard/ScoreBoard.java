@@ -8,6 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.*;
@@ -24,7 +26,7 @@ public class ScoreBoard
     private final HashMap<Player, Scoreboard> scoreboards;
     private final ScoreboardEvents scoreboardEvents;
 
-    public ScoreBoard(ScoreBoardConfig config)
+    public ScoreBoard(Plugin plugin, ScoreBoardConfig config)
     {
         this.config = config;
         scoreboards = new HashMap<>();
@@ -36,10 +38,10 @@ public class ScoreBoard
             public void run()
             {
                 Update();
-                WMLib.getInstance().getServer().getPluginManager().registerEvents(scoreboardEvents,
-                        WMLib.getInstance());
+                plugin.getServer().getPluginManager().registerEvents(scoreboardEvents,
+                        plugin);
             }
-        }.runTask(WMLib.getInstance());
+        }.runTask(plugin);
         updateTask = new BukkitRunnable()
         {
             @Override
@@ -47,7 +49,7 @@ public class ScoreBoard
             {
                 Update();
             }
-        }.runTaskTimer(WMLib.getInstance(), 0, config.UpdateInterval);
+        }.runTaskTimer(plugin, 0, config.UpdateInterval);
 
     }
 
@@ -144,7 +146,7 @@ public class ScoreBoard
         return result;
     }
 
-    public void stop()
+    public void stop(JavaPlugin plugin)
     {
         updateTask.cancel();
         new BukkitRunnable()
@@ -159,7 +161,7 @@ public class ScoreBoard
                 HandlerList.unregisterAll(scoreboardEvents);
                 scoreboards.clear();
             }
-        }.runTask(WMLib.getInstance());
+        }.runTask(plugin);
     }
 
     private class ScoreboardEvents implements Listener

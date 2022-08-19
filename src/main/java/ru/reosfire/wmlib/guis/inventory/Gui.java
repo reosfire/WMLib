@@ -40,7 +40,7 @@ public abstract class Gui implements InventoryHolder
     private final JavaPlugin plugin;
     private final List<GuiComponent> components = new ArrayList<>();
 
-    public Gui(GuiConfig config, Player player, JavaPlugin plugin)
+    public Gui(ru.reosfire.wmlib.yaml.common.gui.GuiConfig config, Player player, JavaPlugin plugin)
     {
         GuiConfig = config;
         Player = player;

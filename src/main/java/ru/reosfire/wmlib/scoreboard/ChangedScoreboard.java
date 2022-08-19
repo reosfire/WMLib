@@ -1,5 +1,7 @@
 package ru.reosfire.wmlib.scoreboard;
 
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import ru.reosfire.wmlib.WMLib;
@@ -23,50 +25,52 @@ public class ChangedScoreboard
         scoreboards.add(config);
     }
 
-    public void Start()
+    public void Start(JavaPlugin plugin)
     {
         if (started) return;
         started = true;
-        MoveNext();
+        MoveNext(plugin);
     }
 
-    private void MoveNext()
+    private void MoveNext(JavaPlugin plugin)
     {
         ScoreBoardConfig poll = scoreboards.poll();
         if (poll == null)
         {
-            Stop();
+            Stop(plugin);
             return;
         }
         scoreboards.add(poll);
         Integer time = scoreboardTimes.get(poll);
-        currentScoreBoard = new ScoreBoard(poll);
-        currentNextMover = new NextMover(time);
+        currentScoreBoard = new ScoreBoard(plugin, poll);
+        currentNextMover = new NextMover(plugin, time);
     }
 
-    public void Stop()
+    public void Stop(JavaPlugin plugin)
     {
         if (!started) return;
         started = false;
-        currentScoreBoard.stop();
+        currentScoreBoard.stop(plugin);
         currentNextMover.cancel();
     }
 
     private class NextMover extends BukkitRunnable
     {
         private final BukkitTask currentTask;
+        private final JavaPlugin plugin;
 
-        public NextMover(int delay)
+        public NextMover(JavaPlugin plugin, int delay)
         {
-            currentTask = runTaskLater(WMLib.getInstance(), delay);
+            currentTask = runTaskLater(plugin, delay);
             currentNextMover = this;
+            this.plugin = plugin;
         }
 
         @Override
         public void run()
         {
-            currentScoreBoard.stop();
-            MoveNext();
+            currentScoreBoard.stop(plugin);
+            MoveNext(plugin);
         }
 
         @Override
