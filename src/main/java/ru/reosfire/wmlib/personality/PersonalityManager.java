@@ -28,7 +28,7 @@ public class PersonalityManager
                 new TableColumn("Name", ColumnType.Text));
     }
 
-    public void RegisterPlayer(OfflinePlayer player) throws SQLException
+    public void registerPlayer(OfflinePlayer player) throws SQLException
     {
         PreparedStatement preparedStatement = connection.getConnection().prepareStatement(
                 "INSERT INTO PlayersAccounts (UUID, Name) VALUES (?, ?) ON DUPLICATE KEY UPDATE UUID=UUID;");
@@ -37,17 +37,17 @@ public class PersonalityManager
         preparedStatement.executeUpdate();
     }
 
-    public IPlayerInfo GetPlayerInfo(UUID uuid)
+    public IPlayerInfo getPlayerInfo(UUID uuid)
     {
         return new PlayerInfo(connection, uuid);
     }
 
-    public IPlayerInfo GetPlayerInfo(OfflinePlayer player)
+    public IPlayerInfo getPlayerInfo(OfflinePlayer player)
     {
-        return GetPlayerInfo(player.getUniqueId());
+        return getPlayerInfo(player.getUniqueId());
     }
 
-    public List<PlayerStat> GetTop(String stat, int count) throws SQLException
+    public List<PlayerStat> getTop(String stat, int count) throws SQLException
     {
         PreparedStatement preparedStatement = connection.getConnection().prepareStatement("SELECT * FROM " + stat +
                 " ORDER BY Value DESC, Time ASC LIMIT ?;");
@@ -55,7 +55,7 @@ public class PersonalityManager
         return getPlayerStats(stat, preparedStatement);
     }
 
-    public List<PlayerStat> GetTop(String stat, int count, int from) throws SQLException
+    public List<PlayerStat> getTop(String stat, int count, int from) throws SQLException
     {
         PreparedStatement preparedStatement = connection.getConnection().prepareStatement("SELECT * FROM " + stat +
                 " ORDER BY Value DESC, Time ASC LIMIT ? OFFSET ?;");
