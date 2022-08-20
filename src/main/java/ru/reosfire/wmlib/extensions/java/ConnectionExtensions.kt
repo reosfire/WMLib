@@ -1,4 +1,4 @@
-package ru.reosfire.wmlib.extensions
+package ru.reosfire.wmlib.extensions.java
 
 import ru.reosfire.wmlib.sql.insertion.ColumnValue
 import ru.reosfire.wmlib.sql.tables.TableColumn
