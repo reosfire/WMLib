@@ -4,12 +4,14 @@ import org.bukkit.event.Listener
 import org.bukkit.plugin.Plugin
 import ru.reosfire.wmlib.yaml.IConfigCreator
 import ru.reosfire.wmlib.yaml.YamlConfig
+import java.io.File
+import java.nio.file.Path
 
 fun Plugin.registerListener(listener: Listener) {
     this.server.pluginManager.registerEvents(listener, this)
 }
 
-fun<T: YamlConfig> Plugin.loadConfig(creator: IConfigCreator<T>): T {
+fun<T: YamlConfig?> Plugin.loadConfig(creator: IConfigCreator<T>): T {
     try {
         return creator.create(YamlConfig.loadOrCreate("config.yml", this))
     } catch (e: Exception){

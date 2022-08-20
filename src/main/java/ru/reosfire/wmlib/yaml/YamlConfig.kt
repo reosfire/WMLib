@@ -7,7 +7,6 @@ import org.bukkit.configuration.InvalidConfigurationException
 import org.bukkit.configuration.MemoryConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.Plugin
-import ru.reosfire.wmlib.commands.CommandNode
 import ru.reosfire.wmlib.text.Text
 import java.io.File
 import java.io.FileOutputStream
@@ -17,8 +16,7 @@ abstract class YamlConfig(configurationSection: ConfigurationSection?) {
     val section: ConfigurationSection
 
     init {
-        if (configurationSection == null) throw NullArgumentException("configurationSection")
-        section = configurationSection
+        section = configurationSection ?: throw NullArgumentException("configurationSection")
     }
 
     fun <T : YamlConfig?> getNestedConfigs(creator: IConfigCreator<T>, path: String?): List<T> {
@@ -47,7 +45,7 @@ abstract class YamlConfig(configurationSection: ConfigurationSection?) {
         val list = section.getList(path) ?: return null
         val tempConfig = MemoryConfiguration()
         for (i in list.indices) {
-            tempConfig.createSection(Integer.toString(i), list[i] as Map<*, *>?)
+            tempConfig.createSection(i.toString(), list[i] as Map<*, *>?)
         }
         return getNestedConfigs(creator, tempConfig)
     }
@@ -204,7 +202,7 @@ abstract class YamlConfig(configurationSection: ConfigurationSection?) {
 
         @Throws(IOException::class, InvalidConfigurationException::class)
         fun loadOrCreate(
-            resultFileName: String?, defaultConfigurationResource: String?,
+            resultFileName: String, defaultConfigurationResource: String?,
             plugin: Plugin
         ): YamlConfiguration {
             val config = YamlConfiguration()
@@ -221,13 +219,13 @@ abstract class YamlConfig(configurationSection: ConfigurationSection?) {
 
         @JvmStatic
         @Throws(IOException::class, InvalidConfigurationException::class)
-        fun loadOrCreate(fileName: String?, plugin: Plugin): YamlConfiguration {
+        fun loadOrCreate(fileName: String, plugin: Plugin): YamlConfiguration {
             return loadOrCreate(fileName, fileName, plugin)
         }
 
         @Throws(IOException::class)
         fun loadOrCreateFile(
-            resultFileName: String?, defaultConfigurationResource: String?,
+            resultFileName: String, defaultConfigurationResource: String?,
             plugin: Plugin
         ): File {
             val configFile = File(plugin.dataFolder, resultFileName)
@@ -244,7 +242,7 @@ abstract class YamlConfig(configurationSection: ConfigurationSection?) {
         }
 
         @Throws(IOException::class)
-        fun loadOrCreateFile(fileName: String?, plugin: Plugin): File {
+        fun loadOrCreateFile(fileName: String, plugin: Plugin): File {
             return loadOrCreateFile(fileName, fileName, plugin)
         }
     }
