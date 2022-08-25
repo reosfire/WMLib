@@ -8,6 +8,10 @@ interface DropList<T> {
     val chancesSum: Double
     val size: Int
 
+    operator fun get(index: Int): Element<T> {
+        return elements[index]
+    }
+
     fun add(element: Element<T>)
     fun add(item: T, chance: Double) {
         add(Element(item, chance))
