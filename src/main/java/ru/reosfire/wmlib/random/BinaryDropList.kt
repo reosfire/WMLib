@@ -4,8 +4,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class BinaryDropList<T>: DropList<T> {
-    val size get() = _elements.size
-    val elements: List<DropList.Element<T>> get() = _elements
+    override val size get() = _elements.size
+    override val elements: List<DropList.Element<T>> get() = _elements
+    override val chancesSum get() = _chancesPrefixSums.last()
     val chancesPrefixSums: List<Double> get() = _chancesPrefixSums
 
     private val _elements = ArrayList<DropList.Element<T>>()

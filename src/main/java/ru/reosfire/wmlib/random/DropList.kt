@@ -4,6 +4,10 @@ import io.netty.util.internal.ThreadLocalRandom
 import java.util.Random
 
 interface DropList<T> {
+    val elements: List<Element<T>>
+    val chancesSum: Double
+    val size: Int
+
     fun add(element: Element<T>)
     fun add(item: T, chance: Double) {
         add(Element(item, chance))
