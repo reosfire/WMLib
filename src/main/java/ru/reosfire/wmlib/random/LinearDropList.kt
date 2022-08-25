@@ -26,7 +26,7 @@ class LinearDropList<T>: DropList<T> {
     }
 
     override fun getRandom(random: Random): T {
-        val generated = random.nextDouble(_chancesSum)
+        val generated = random.nextDouble() * chancesSum
         var sum = _elements.first().chance
         var result = 1
 

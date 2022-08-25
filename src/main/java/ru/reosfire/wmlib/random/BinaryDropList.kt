@@ -36,7 +36,7 @@ class BinaryDropList<T>: DropList<T> {
     }
 
     override fun getRandom(random: Random): T {
-        val generated = random.nextDouble(_chancesPrefixSums.last())
+        val generated = random.nextDouble() * chancesSum
         var start = -1
         var end = size
         while (end - start > 1) {
