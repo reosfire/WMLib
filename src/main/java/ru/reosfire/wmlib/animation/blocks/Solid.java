@@ -10,7 +10,7 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-public class Solid
+public abstract class Solid
 {
     protected Location pivot;
     protected Hashtable<Vector, MaterialData> relativeBlocks;

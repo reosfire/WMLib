@@ -3,6 +3,7 @@ package ru.reosfire.wmlib.animation.blocks;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.material.MaterialData;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import ru.reosfire.wmlib.WMLib;
 
@@ -17,11 +18,6 @@ public class AnimationOperation
         this.materialData = materialData;
     }
 
-    public AnimationOperation(Block block, ru.reosfire.wmlib.yaml.common.Block blockData)
-    {
-        this(block, blockData.getMaterialData());
-    }
-
     public void execute()
     {
         ru.reosfire.wmlib.yaml.common.Block.NMSSet(block, materialData);
@@ -31,7 +27,7 @@ public class AnimationOperation
         ru.reosfire.wmlib.yaml.common.Block.setFor(player, block, materialData);
     }
 
-    public static void execute(WMLib instance, AnimationOperation... operations)
+    public static void execute(Plugin plugin, AnimationOperation... operations)
     {
         new BukkitRunnable()
         {
@@ -43,6 +39,6 @@ public class AnimationOperation
                     operation.execute();
                 }
             }
-        }.runTask(instance);
+        }.runTask(plugin);
     }
 }

@@ -1,60 +1,48 @@
-package ru.reosfire.wmlib.yaml;
+package ru.reosfire.wmlib.yaml
 
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
+import org.bukkit.Location
+import org.bukkit.World
+import org.bukkit.configuration.ConfigurationSection
+import org.bukkit.entity.Player
+import org.bukkit.util.Vector
 
-public class Position extends YamlConfig
-{
-    public final double X;
-    public final double Y;
-    public final double Z;
-    public final float Yaw;
-    public final float Pitch;
-    private boolean yawPitchSet;
+class Position(configurationSection: ConfigurationSection?) : YamlConfig(configurationSection) {
+    val X: Double = getDouble("X")
+    val Y: Double = getDouble("Y")
+    val Z: Double = getDouble("Z")
+    private var Yaw = 0f
+    private var Pitch = 0f
+    private var yawPitchSet = false
 
-    public Position(ConfigurationSection configurationSection)
-    {
-        super(configurationSection);
-        X = getDouble("X");
-        Y = getDouble("Y");
-        Z = getDouble("Z");
-        String yaw = getString("Yaw");
-        String pitch = getString("Pitch");
-        if (!(yaw == null || pitch == null))
-        {
-            Yaw = Float.parseFloat(yaw);
-            Pitch = Float.parseFloat(pitch);
-            yawPitchSet = true;
-        }
-        else
-        {
-            Yaw = 0f;
-            Pitch = 0f;
+    init {
+        val yaw = getString("Yaw")
+        val pitch = getString("Pitch")
+
+        if (!(yaw == null || pitch == null)) {
+            Yaw = yaw.toFloat()
+            Pitch = pitch.toFloat()
+            yawPitchSet = true
+        } else {
+            Yaw = 0f
+            Pitch = 0f
         }
     }
 
-    public Vector toVector()
-    {
-        return new Vector(X, Y, Z);
+    fun toVector(): Vector {
+        return Vector(X, Y, Z)
     }
 
-    public void teleport(Player player)
-    {
-        teleport(player, toLocation(player.getWorld()));
-    }
-    public static void teleport(Player player, Location to)
-    {
-        boolean allowFlight = player.getAllowFlight();
-        if (!allowFlight) player.setAllowFlight(true);
-        player.teleport(to);
-        if (!allowFlight) player.setAllowFlight(false);
+    fun toLocation(world: World): Location {
+        return if (yawPitchSet) Location(world, X, Y, Z, Yaw, Pitch) else Location(world, X, Y, Z)
     }
 
-    public Location toLocation(World world)
-    {
-        return yawPitchSet ? new Location(world, X, Y, Z, Yaw, Pitch) : new Location(world, X, Y, Z);
+    fun teleport(player: Player) {
+        val allowFlight = player.allowFlight
+        if (!allowFlight) {
+            player.allowFlight = true
+            player.teleport(toLocation(player.world))
+            player.allowFlight = false
+        }
+        else player.teleport(toLocation(player.world))
     }
 }
