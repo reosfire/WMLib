@@ -52,7 +52,7 @@ public class Switch<T> extends GuiComponent
     }
     protected ItemStack renderElement(T element, ItemConfig item)
     {
-        return item.unwrap(gui.Player, replacements);
+        return item.unwrap(gui.getPlayer(), replacements);
     }
     protected void onSwitch(T previousElement, T currentElement)
     {
@@ -62,7 +62,7 @@ public class Switch<T> extends GuiComponent
     protected void onClick(InventoryClickEvent event)
     {
         long nowTime = Instant.now().toEpochMilli();
-        if(nowTime - lastClick < config.CoolDown)
+        if(nowTime - lastClick < config.getCoolDown())
             return;
 
         T previous = getCurrent();
@@ -74,7 +74,7 @@ public class Switch<T> extends GuiComponent
     }
     private void onItemClicked(InventoryClickEvent event)
     {
-        if(event.getSlot() != config.Index) return;
+        if(event.getSlot() != config.getIndex()) return;
         onClick(event);
     }
 
@@ -86,8 +86,8 @@ public class Switch<T> extends GuiComponent
     @Override
     public void renderTo(Inventory inventory, Replacement... replacements)
     {
-        inventory.setItem(config.Index, renderElement(elements.get(elementIndex),
-                config.Items.get(elementIndex % config.Items.size())));
+        inventory.setItem(config.getIndex(), renderElement(elements.get(elementIndex),
+                config.getItems().get(elementIndex % config.getItems().size())));
         this.replacements = replacements;
     }
 }

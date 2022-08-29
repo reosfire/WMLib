@@ -1,25 +1,22 @@
-package ru.reosfire.wmlib.yaml.common.gui;
+package ru.reosfire.wmlib.yaml.common.gui
 
-import org.bukkit.configuration.ConfigurationSection;
-import ru.reosfire.wmlib.yaml.YamlConfig;
+import org.bukkit.configuration.ConfigurationSection
+import ru.reosfire.wmlib.yaml.YamlConfig
 
-import java.util.List;
+abstract class GuiConfig(section: ConfigurationSection?) : YamlConfig(section) {
+    val Title: String?
+    val Size: Int
+    val Components: List<ComponentConfig>
 
-public abstract class GuiConfig extends YamlConfig
-{
-    public final String Title;
-    public final int Size;
-    public final List<ComponentConfig> Components;
-
-    public GuiConfig(ConfigurationSection section)
-    {
-        super(section);
-        Title = getColoredString("Title");
-        Size = getInt("Size");
-        Components = getNestedConfigs(ComponentConfig::new,"Components");
+    init {
+        Title = getColoredString("Title")
+        Size = getInt("Size")
+        Components = getNestedConfigs("Components") {
+            ComponentConfig(it)
+        }
     }
-    public ButtonConfig getButton(String path)
-    {
-        return new ButtonConfig(getSection(path));
+
+    fun getButton(path: String?): ButtonConfig {
+        return ButtonConfig(getSection(path!!))
     }
 }

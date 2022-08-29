@@ -55,7 +55,7 @@ public abstract class ItemSelector extends GuiComponent
     public void renderTo(Inventory inventory, Replacement... replacements)
     {
         this.replacements = replacements;
-        ItemStack item = isEmptyItem(currentItem) ? config.DefaultItem.unwrap(gui.Player, replacements) : currentItem;
+        ItemStack item = isEmptyItem(currentItem) ? config.DefaultItem.unwrap(gui.getPlayer(), replacements) : currentItem;
         inventory.setItem(config.Index, item);
     }
 }

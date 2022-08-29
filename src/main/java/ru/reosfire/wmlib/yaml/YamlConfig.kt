@@ -7,7 +7,7 @@ import org.bukkit.configuration.InvalidConfigurationException
 import org.bukkit.configuration.MemoryConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.Plugin
-import ru.reosfire.wmlib.text.Text
+import ru.reosfire.wmlib.extensions.setColors
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -19,17 +19,17 @@ abstract class YamlConfig(configurationSection: ConfigurationSection?) {
         section = configurationSection ?: throw NullArgumentException("configurationSection")
     }
 
-    fun <T : YamlConfig?> getNestedConfigs(creator: IConfigCreator<T>, path: String?): List<T> {
+    fun <T : YamlConfig?> getNestedConfigs(path: String, creator: IConfigCreator<T>): List<T> {
         val result = ArrayList<T>()
         val configsParent = getSection(path, null) ?: return result
-        return getNestedConfigs(creator, configsParent)
+        return getNestedConfigs(configsParent, creator)
     }
 
     fun <T : YamlConfig?> getNestedConfigs(creator: IConfigCreator<T>): List<T> {
-        return getNestedConfigs(creator, section)
+        return getNestedConfigs(section, creator)
     }
 
-    private fun <T : YamlConfig?> getNestedConfigs(creator: IConfigCreator<T>, section: ConfigurationSection): List<T> {
+    private fun <T : YamlConfig?> getNestedConfigs(section: ConfigurationSection, creator: IConfigCreator<T>): List<T> {
         val result = ArrayList<T>()
         for (key in section.getKeys(false)) {
             try {
@@ -41,13 +41,13 @@ abstract class YamlConfig(configurationSection: ConfigurationSection?) {
         return result
     }
 
-    fun <T : YamlConfig?> getList(creator: IConfigCreator<T>, path: String?): List<T>? {
-        val list = section.getList(path) ?: return null
+    fun <T : YamlConfig?> getList(creator: IConfigCreator<T>, path: String?): List<T> {
+        val list = section.getList(path) ?: return listOf()
         val tempConfig = MemoryConfiguration()
         for (i in list.indices) {
             tempConfig.createSection(i.toString(), list[i] as Map<*, *>?)
         }
-        return getNestedConfigs(creator, tempConfig)
+        return getNestedConfigs(tempConfig, creator)
     }
 
     fun <T : YamlConfig?> getMap(creator: IConfigCreator<T>, path: String): Map<String, T> {
@@ -70,19 +70,19 @@ abstract class YamlConfig(configurationSection: ConfigurationSection?) {
         return result
     }
 
-    fun getString(path: String?): String? {
+    fun getString(path: String): String? {
         return section.getString(path)
     }
 
-    fun getString(path: String?, def: String?): String {
+    fun getString(path: String, def: String?): String? {
         return section.getString(path, def)
     }
 
-    fun getColoredString(path: String?): String {
+    fun getColoredString(path: String): String? {
         return ChatColor.translateAlternateColorCodes('&', getString(path))
     }
 
-    fun getColoredString(path: String?, def: String?): String {
+    fun getColoredString(path: String, def: String?): String? {
         return ChatColor.translateAlternateColorCodes('&', getString(path, def))
     }
 
@@ -118,7 +118,7 @@ abstract class YamlConfig(configurationSection: ConfigurationSection?) {
         return section.getDouble(path, def)
     }
 
-    fun getFloat(path: String?, def: Float): Float {
+    fun getFloat(path: String, def: Float): Float {
         val string = getString(path) ?: return def
         return string.toFloat()
     }
@@ -129,53 +129,47 @@ abstract class YamlConfig(configurationSection: ConfigurationSection?) {
     }
 
     fun getSection(
-        path: String?,
+        path: String,
         def: ConfigurationSection?
     ): ConfigurationSection? {
         return section.getConfigurationSection(path) ?: return def
     }
 
-    fun getStringList(path: String?): List<String>? {
+    fun getStringList(path: String): List<String?>? {
         val stringList = section.getStringList(path)
         if (stringList == null || stringList.isEmpty()) {
-            val string = getString(path)
-            if (string != null) return listOf(string)
+            return listOf(getString(path))
         }
         return stringList
     }
 
-    fun getStringList(path: String?, def: List<String>): List<String> {
+    fun getStringList(path: String, def: List<String?>?): List<String?>? {
         val stringList = getStringList(path)
-        return if (stringList == null || stringList.isEmpty()) def else stringList
+        return stringList?.ifEmpty { def }
     }
 
-    fun getColoredStringList(path: String?): List<String> {
-        return Text.setColors(getStringList(path))
+    fun getColoredStringList(path: String): List<String?>? {
+        return getStringList(path)?.setColors()
     }
 
-    fun getColoredStringList(path: String?, def: List<String>): List<String> {
-        return Text.setColors(getStringList(path, def))
+    fun getColoredStringList(path: String, def: List<String?>?): List<String?>? {
+        return getStringList(path, def)?.setColors()
     }
 
-    fun getIntegerList(path: String?): List<Int>? {
-        val stringList = getStringList(path) ?: return null
-        val result: MutableList<Int> = ArrayList()
-        for (s in stringList) {
-            result.add(s.toInt())
-        }
-        return result
+    fun getIntegerList(path: String): List<Int>? {
+        return getStringList(path)?.map { it?.toInt() ?: 0 }
     }
 
-    fun getIntegerList(path: String?, def: List<Int>): List<Int> {
+    fun getIntegerList(path: String, def: List<Int>): List<Int> {
         val stringList = getStringList(path) ?: return def
         val result: MutableList<Int> = ArrayList()
         for (s in stringList) {
-            result.add(s.toInt())
+            result.add(s?.toInt() ?: 0)
         }
         return if (result.isEmpty()) def else result
     }
 
-    fun getByte(path: String?): Byte {
+    fun getByte(path: String): Byte {
         return getInt(path).toByte()
     }
 

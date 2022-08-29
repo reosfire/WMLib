@@ -36,6 +36,6 @@ public abstract class Button extends GuiComponent
     @Override
     public void renderTo(Inventory inventory, Replacement... replacements)
     {
-        inventory.setItem(config.Index, config.Item.unwrap(gui.Player, replacements));
+        inventory.setItem(config.Index, config.Item.unwrap(gui.getPlayer(), replacements));
     }
 }

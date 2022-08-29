@@ -20,7 +20,7 @@ public class CommandButton extends Button
     {
         for (String command : _config.Command)
         {
-            gui.Player.performCommand(command);
+            gui.getPlayer().performCommand(command);
         }
     }
 }
