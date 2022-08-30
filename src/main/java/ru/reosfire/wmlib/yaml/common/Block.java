@@ -15,6 +15,7 @@ import org.bukkit.craftbukkit.v1_12_R1.CraftChunk;
 import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.material.MaterialData;
+import ru.reosfire.wmlib.extensions.StringExtensionsKt;
 import ru.reosfire.wmlib.yaml.YamlConfig;
 
 import java.lang.reflect.InvocationTargetException;
