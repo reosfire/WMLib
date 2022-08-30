@@ -1,7 +1,7 @@
 package ru.reosfire.wmlib.random
 
 import io.netty.util.internal.ThreadLocalRandom
-import java.util.Random
+import java.util.*
 
 interface DropList<T> {
     val elements: List<Element<T>>

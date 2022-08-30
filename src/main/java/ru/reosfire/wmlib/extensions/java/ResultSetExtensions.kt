@@ -2,7 +2,7 @@ package ru.reosfire.wmlib.extensions.java
 
 import ru.reosfire.wmlib.utils.UUIDConverter
 import java.sql.ResultSet
-import java.util.UUID
+import java.util.*
 
 fun ResultSet.getUUID(columnIndex: Int): UUID {
     return UUID.fromString(getString(columnIndex))

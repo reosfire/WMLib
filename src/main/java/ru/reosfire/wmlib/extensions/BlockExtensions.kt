@@ -4,7 +4,6 @@ import com.comphenix.protocol.PacketType
 import com.comphenix.protocol.ProtocolLibrary
 import com.comphenix.protocol.wrappers.BlockPosition
 import com.comphenix.protocol.wrappers.WrappedBlockData
-import org.bukkit.Location
 import org.bukkit.block.Block
 import org.bukkit.craftbukkit.v1_12_R1.CraftChunk
 import org.bukkit.craftbukkit.v1_12_R1.CraftWorld

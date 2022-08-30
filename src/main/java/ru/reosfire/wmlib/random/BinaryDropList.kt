@@ -1,7 +1,6 @@
 package ru.reosfire.wmlib.random
 
 import java.util.*
-import kotlin.collections.ArrayList
 
 class BinaryDropList<T>: DropList<T> {
     override val size get() = _elements.size

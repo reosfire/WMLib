@@ -1,7 +1,5 @@
 package ru.reosfire.wmlib.guis.inventory.components;
 
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Firework;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import ru.reosfire.wmlib.guis.inventory.Gui;
 import ru.reosfire.wmlib.yaml.common.gui.CommandButtonConfig;

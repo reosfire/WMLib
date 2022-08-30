@@ -7,8 +7,6 @@ import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
 import ru.reosfire.wmlib.yaml.IConfigCreator
 import ru.reosfire.wmlib.yaml.YamlConfig
-import java.io.File
-import java.nio.file.Path
 
 fun Plugin.registerListener(listener: Listener) {
     this.server.pluginManager.registerEvents(listener, this)
