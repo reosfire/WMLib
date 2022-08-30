@@ -1,39 +1,25 @@
-package ru.reosfire.wmlib.sql.selection;
+package ru.reosfire.wmlib.sql.selection
 
-public class Where implements ISelectionAttribute
-{
-    private final IWhereMember[] members;
+class Where : ISelectionAttribute {
+    private val members: Array<out IWhereMember>
 
-    public Where(IWhereMember... members)
-    {
-        this.members = members;
+    constructor(vararg members: IWhereMember) {
+        this.members = members
     }
 
-    public Where(String var, Comparer comparer, String value)
-    {
-        members = new IWhereMember[]{new Condition(var, comparer, value)};
+    constructor(variable: String, comparer: Comparer, value: String) {
+        members = arrayOf(Condition(variable, comparer, value))
     }
 
-    public Where(String var, Comparer comparer, long value)
-    {
-        members = new IWhereMember[]{new Condition(var, comparer, value)};
+    constructor(variable: String, comparer: Comparer, value: Long) {
+        members = arrayOf(Condition(variable, comparer, value))
     }
 
-    public Where(String var, Comparer comparer, boolean value)
-    {
-        members = new IWhereMember[]{new Condition(var, comparer, value)};
+    constructor(variable: String, comparer: Comparer, value: Boolean) {
+        members = arrayOf(Condition(variable, comparer, value))
     }
 
-    @Override
-    public String toSqlString()
-    {
-        StringBuilder result = new StringBuilder("WHERE");
-
-        for (IWhereMember member : members)
-        {
-            result.append(" ").append(member.toSqlString());
-        }
-
-        return result.toString();
+    override fun toSqlString(): String {
+        return "WHERE ${members.joinToString(" ") { it.toSqlString() }}"
     }
 }

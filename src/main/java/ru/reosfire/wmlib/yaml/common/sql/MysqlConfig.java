@@ -5,7 +5,7 @@ import ru.reosfire.wmlib.sql.ISqlConfiguration;
 import ru.reosfire.wmlib.sql.SqlRequirementsNotSatisfiedException;
 import ru.reosfire.wmlib.yaml.YamlConfig;
 
-public class MysqlConfiguration extends YamlConfig implements ISqlConfiguration
+public class MysqlConfig extends YamlConfig implements ISqlConfiguration
 {
     public final String Ip;
     public final String User;
@@ -14,7 +14,7 @@ public class MysqlConfiguration extends YamlConfig implements ISqlConfiguration
     public final boolean UseSsl, UseUnicode, AutoReconnect, FailOverReadOnly;
     public final int Port, MaxReconnects;
 
-    public MysqlConfiguration(ConfigurationSection configurationSection)
+    public MysqlConfig(ConfigurationSection configurationSection)
     {
         super(configurationSection);
         Ip = getString("Ip");

@@ -1,4 +1,4 @@
-package ru.reosfire.wmlib.extensions.java
+package ru.reosfire.wmlib.sql.extensions
 
 import ru.reosfire.wmlib.utils.UUIDConverter
 import java.sql.ResultSet

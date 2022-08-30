@@ -1,9 +1,5 @@
-package ru.reosfire.wmlib.sql.selection;
+package ru.reosfire.wmlib.sql.selection
 
+import ru.reosfire.wmlib.sql.ISqlPart
 
-import ru.reosfire.wmlib.sql.ISqlPart;
-
-public interface IWhereMember extends ISqlPart
-{
-
-}
+interface IWhereMember : ISqlPart

@@ -1,35 +1,29 @@
-package ru.reosfire.wmlib.sql.selection;
+package ru.reosfire.wmlib.sql.selection
 
-public class Condition implements IWhereMember
-{
-    public final String Variable;
-    public final Comparer Comparer;
-    public final String Value;
+class Condition : IWhereMember {
+    val variable: String
+    val comparer: Comparer
+    val value: String
 
-    public Condition(String variable, Comparer comparer, String value)
-    {
-        Variable = variable;
-        Comparer = comparer;
-        Value = "'" + value + "'";
+    constructor(variable: String, comparer: Comparer, value: String) {
+        this.variable = variable
+        this.comparer = comparer
+        this.value = "'$value'"
     }
 
-    public Condition(String variable, Comparer comparer, long value)
-    {
-        Variable = variable;
-        Comparer = comparer;
-        Value = Long.toString(value);
+    constructor(variable: String, comparer: Comparer, value: Long) {
+        this.variable = variable
+        this.comparer = comparer
+        this.value = java.lang.Long.toString(value)
     }
 
-    public Condition(String variable, Comparer comparer, boolean value)
-    {
-        Variable = variable;
-        Comparer = comparer;
-        Value = value ? "1" : "0";
+    constructor(variable: String, comparer: Comparer, value: Boolean) {
+        this.variable = variable
+        this.comparer = comparer
+        this.value = if (value) "1" else "0"
     }
 
-    @Override
-    public String toSqlString()
-    {
-        return Variable + Comparer.toSqlString() + Value;
+    override fun toSqlString(): String {
+        return variable + comparer.toSqlString() + value
     }
 }

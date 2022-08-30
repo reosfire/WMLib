@@ -5,11 +5,11 @@ import ru.reosfire.wmlib.sql.ISqlConfiguration;
 import ru.reosfire.wmlib.sql.SqlRequirementsNotSatisfiedException;
 import ru.reosfire.wmlib.yaml.YamlConfig;
 
-public class FileSqlConfiguration extends YamlConfig implements ISqlConfiguration
+public class FileSqlConfig extends YamlConfig implements ISqlConfiguration
 {
     public final String FilePath;
 
-    public FileSqlConfiguration(ConfigurationSection configurationSection)
+    public FileSqlConfig(ConfigurationSection configurationSection)
     {
         super(configurationSection);
         FilePath = getString("FilePath");

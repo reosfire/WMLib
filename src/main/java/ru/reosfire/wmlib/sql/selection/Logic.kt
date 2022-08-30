@@ -1,15 +1,9 @@
-package ru.reosfire.wmlib.sql.selection;
+package ru.reosfire.wmlib.sql.selection
 
-import java.util.Locale;
+enum class Logic : IWhereMember {
+    And, Or;
 
-public enum Logic implements IWhereMember
-{
-    And,
-    Or;
-
-    @Override
-    public String toSqlString()
-    {
-        return name().toUpperCase(Locale.ROOT);
+    override fun toSqlString(): String {
+        return name.uppercase()
     }
 }
