@@ -1,41 +1,28 @@
-package ru.reosfire.wmlib.guis.inventory.components;
+package ru.reosfire.wmlib.guis.inventory.components
 
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
-import ru.reosfire.wmlib.guis.inventory.Gui;
-import ru.reosfire.wmlib.text.Replacement;
-import ru.reosfire.wmlib.yaml.common.gui.ButtonConfig;
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.inventory.Inventory
+import ru.reosfire.wmlib.yaml.common.gui.ButtonConfig
+import ru.reosfire.wmlib.guis.inventory.Gui
+import ru.reosfire.wmlib.text.Replacement
 
-public abstract class Button extends GuiComponent
-{
-    private final ButtonConfig config;
-    public Button(ButtonConfig config, Gui gui)
-    {
-        super(gui);
-        this.config = config;
+abstract class Button(private val config: ButtonConfig, gui: Gui) : GuiComponent(gui) {
+    protected abstract fun onClick(event: InventoryClickEvent)
+    private fun onItemClicked(event: InventoryClickEvent) {
+        if (event.slot != config.index) return
+        onClick(event)
     }
 
-    protected abstract void onClick(InventoryClickEvent event);
-    private void onItemClicked(InventoryClickEvent event)
-    {
-        if(event.getSlot() != config.Index) return;
-        onClick(event);
-    }
-    @Override
-    public void register()
-    {
-        addClickHandler(this::onItemClicked);
-    }
-    @Override
-    public void unregister()
-    {
-        super.unregister();
-        gui.getInventory().setItem(config.Index, null);
+    override fun register() {
+        addClickHandler { event: InventoryClickEvent -> onItemClicked(event) }
     }
 
-    @Override
-    public void renderTo(Inventory inventory, Replacement... replacements)
-    {
-        inventory.setItem(config.Index, config.Item.unwrap(gui.getPlayer(), replacements));
+    override fun unregister() {
+        super.unregister()
+        gui.inventory.setItem(config.index, null)
+    }
+
+    override fun renderTo(inventory: Inventory, vararg replacements: Replacement) {
+        inventory.setItem(config.index, config.item.unwrap(gui.Player, *replacements))
     }
 }

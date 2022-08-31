@@ -1,22 +1,12 @@
-package ru.reosfire.wmlib.guis.inventory.components;
+package ru.reosfire.wmlib.guis.inventory.components
 
-import org.bukkit.event.inventory.InventoryClickEvent;
-import ru.reosfire.wmlib.guis.inventory.Gui;
-import ru.reosfire.wmlib.guis.inventory.IClickEventHandler;
-import ru.reosfire.wmlib.yaml.common.gui.ButtonConfig;
+import org.bukkit.event.inventory.InventoryClickEvent
+import ru.reosfire.wmlib.yaml.common.gui.ButtonConfig
+import ru.reosfire.wmlib.guis.inventory.Gui
+import ru.reosfire.wmlib.guis.inventory.IClickEventHandler
 
-public class DelegateButton extends Button
-{
-    private final IClickEventHandler delegate;
-    public DelegateButton(ButtonConfig config, Gui gui, IClickEventHandler delegate)
-    {
-        super(config, gui);
-        this.delegate = delegate;
-    }
-
-    @Override
-    protected void onClick(InventoryClickEvent event)
-    {
-        delegate.Handle(event);
+class DelegateButton(config: ButtonConfig, gui: Gui, private val delegate: IClickEventHandler) : Button(config, gui) {
+    override fun onClick(event: InventoryClickEvent) {
+        delegate.handle(event)
     }
 }

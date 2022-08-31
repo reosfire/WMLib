@@ -13,23 +13,19 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 abstract class YamlConfig(configurationSection: ConfigurationSection?) {
-    val section: ConfigurationSection
+    val section = configurationSection ?: throw NullArgumentException("configurationSection")
 
-    init {
-        section = configurationSection ?: throw NullArgumentException("configurationSection")
-    }
-
-    fun <T : YamlConfig?> getNestedConfigs(path: String, creator: IConfigCreator<T>): List<T> {
+    fun <T : YamlConfig> getNestedConfigs(path: String, creator: IConfigCreator<T>): List<T> {
         val result = ArrayList<T>()
         val configsParent = getSection(path, null) ?: return result
         return getNestedConfigs(configsParent, creator)
     }
 
-    fun <T : YamlConfig?> getNestedConfigs(creator: IConfigCreator<T>): List<T> {
+    fun <T : YamlConfig> getNestedConfigs(creator: IConfigCreator<T>): List<T> {
         return getNestedConfigs(section, creator)
     }
 
-    private fun <T : YamlConfig?> getNestedConfigs(section: ConfigurationSection, creator: IConfigCreator<T>): List<T> {
+    private fun <T : YamlConfig> getNestedConfigs(section: ConfigurationSection, creator: IConfigCreator<T>): List<T> {
         val result = ArrayList<T>()
         for (key in section.getKeys(false)) {
             try {
@@ -41,7 +37,7 @@ abstract class YamlConfig(configurationSection: ConfigurationSection?) {
         return result
     }
 
-    fun <T : YamlConfig?> getList(creator: IConfigCreator<T>, path: String?): List<T> {
+    fun <T : YamlConfig> getList(creator: IConfigCreator<T>, path: String?): List<T> {
         val list = section.getList(path) ?: return listOf()
         val tempConfig = MemoryConfiguration()
         for (i in list.indices) {
@@ -50,15 +46,15 @@ abstract class YamlConfig(configurationSection: ConfigurationSection?) {
         return getNestedConfigs(tempConfig, creator)
     }
 
-    fun <T : YamlConfig?> getMap(creator: IConfigCreator<T>, path: String): Map<String, T> {
+    fun <T : YamlConfig> getMap(creator: IConfigCreator<T>, path: String): Map<String, T> {
         return getMap(creator, getSection(path))
     }
 
-    fun <T : YamlConfig?> getMap(creator: IConfigCreator<T>): Map<String, T> {
+    fun <T : YamlConfig> getMap(creator: IConfigCreator<T>): Map<String, T> {
         return getMap(creator, section)
     }
 
-    fun <T : YamlConfig?> getMap(creator: IConfigCreator<T>, section: ConfigurationSection): Map<String, T> {
+    fun <T : YamlConfig> getMap(creator: IConfigCreator<T>, section: ConfigurationSection): Map<String, T> {
         val result: MutableMap<String, T> = HashMap()
         for (key in section.getKeys(false)) {
             try {

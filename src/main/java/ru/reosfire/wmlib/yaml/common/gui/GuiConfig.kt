@@ -4,19 +4,13 @@ import org.bukkit.configuration.ConfigurationSection
 import ru.reosfire.wmlib.yaml.YamlConfig
 
 abstract class GuiConfig(section: ConfigurationSection?) : YamlConfig(section) {
-    val Title: String?
-    val Size: Int
-    val Components: List<ComponentConfig>
-
-    init {
-        Title = getColoredString("Title")
-        Size = getInt("Size")
-        Components = getNestedConfigs("Components") {
-            ComponentConfig(it)
-        }
+    val title: String? = getColoredString("Title")
+    val size: Int = getInt("Size")
+    val components = getNestedConfigs("Components") {
+        ComponentConfig(it)
     }
 
-    fun getButton(path: String?): ButtonConfig {
-        return ButtonConfig(getSection(path!!))
+    fun getButton(path: String): ButtonConfig {
+        return ButtonConfig(getSection(path))
     }
 }

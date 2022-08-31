@@ -1,48 +1,24 @@
-package ru.reosfire.wmlib.yaml.common.sql;
+package ru.reosfire.wmlib.yaml.common.sql
 
-import org.bukkit.configuration.ConfigurationSection;
-import ru.reosfire.wmlib.sql.ISqlConfiguration;
-import ru.reosfire.wmlib.sql.SqlRequirementsNotSatisfiedException;
-import ru.reosfire.wmlib.yaml.YamlConfig;
+import org.bukkit.configuration.ConfigurationSection
+import ru.reosfire.wmlib.yaml.YamlConfig
+import ru.reosfire.wmlib.sql.ISqlConfiguration
+import kotlin.Throws
+import ru.reosfire.wmlib.sql.SqlRequirementsNotSatisfiedException
+import java.lang.ClassNotFoundException
 
-public class FileSqlConfig extends YamlConfig implements ISqlConfiguration
-{
-    public final String FilePath;
+class FileSqlConfig(configurationSection: ConfigurationSection?) : YamlConfig(configurationSection), ISqlConfiguration {
+    val filePath = getString("FilePath")
+    override val user = null
+    override val password = null
+    override val connectionString get() = "jdbc:sqlite:$filePath"
 
-    public FileSqlConfig(ConfigurationSection configurationSection)
-    {
-        super(configurationSection);
-        FilePath = getString("FilePath");
-    }
-
-    @Override
-    public String getUser()
-    {
-        return null;
-    }
-
-    @Override
-    public String getPassword()
-    {
-        return null;
-    }
-
-    @Override
-    public String getConnectionString()
-    {
-        return "jdbc:sqlite:" + FilePath;
-    }
-
-    @Override
-    public void checkRequirements() throws SqlRequirementsNotSatisfiedException
-    {
-        try
-        {
-            Class.forName("org.sqlite.JDBC");
-        }
-        catch (ClassNotFoundException e)
-        {
-            throw new SqlRequirementsNotSatisfiedException(e);
+    @Throws(SqlRequirementsNotSatisfiedException::class)
+    override fun checkRequirements() {
+        try {
+            Class.forName("org.sqlite.JDBC")
+        } catch (e: ClassNotFoundException) {
+            throw SqlRequirementsNotSatisfiedException(e)
         }
     }
 }

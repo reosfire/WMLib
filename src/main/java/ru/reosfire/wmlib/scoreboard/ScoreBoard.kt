@@ -38,7 +38,7 @@ class ScoreBoard(plugin: Plugin, private val config: ScoreBoardConfig) {
             override fun run() {
                 update()
             }
-        }.runTaskTimer(plugin, 0, config.UpdateInterval.toLong())
+        }.runTaskTimer(plugin, 0, config.updateInterval.toLong())
     }
 
     fun update() {
@@ -55,12 +55,12 @@ class ScoreBoard(plugin: Plugin, private val config: ScoreBoardConfig) {
             objective = scoreboard.registerNewObjective("a", "b")
             objective.displaySlot = DisplaySlot.SIDEBAR
         }
-        val name = config.Name.colorize(player)
+        val name = config.name.colorize(player)
         if (!PlaceholderAPI.containsPlaceholders(name)) {
             objective!!.displayName = name
         }
         var score = 100
-        for (line in config.Lines) {
+        for (line in config.lines) {
             if (line == null) continue
             score--
             val teamName = Integer.toString(score)

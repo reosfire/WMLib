@@ -52,17 +52,17 @@ public class Switch<T> extends GuiComponent
     }
     protected ItemStack renderElement(T element, ItemConfig item)
     {
-        return item.unwrap(gui.getPlayer(), replacements);
+        return item.unwrap(getGui().getPlayer(), replacements);
     }
     protected void onSwitch(T previousElement, T currentElement)
     {
-        ReRender(replacements);
+        reRender(replacements);
     }
 
     protected void onClick(InventoryClickEvent event)
     {
         long nowTime = Instant.now().toEpochMilli();
-        if(nowTime - lastClick < config.getCoolDown())
+        if(nowTime - lastClick < config.getCooldown())
             return;
 
         T previous = getCurrent();

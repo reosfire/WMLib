@@ -1,9 +1,12 @@
-package ru.reosfire.wmlib.sql;
+package ru.reosfire.wmlib.sql
 
-public interface ISqlConfiguration
-{
-    String getUser();
-    String getPassword();
-    String getConnectionString();
-    void checkRequirements() throws SqlRequirementsNotSatisfiedException;
+import kotlin.Throws
+
+interface ISqlConfiguration {
+    val user: String?
+    val password: String?
+    val connectionString: String?
+
+    @Throws(SqlRequirementsNotSatisfiedException::class)
+    fun checkRequirements()
 }

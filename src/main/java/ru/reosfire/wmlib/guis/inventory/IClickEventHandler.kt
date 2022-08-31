@@ -1,8 +1,7 @@
-package ru.reosfire.wmlib.guis.inventory;
+package ru.reosfire.wmlib.guis.inventory
 
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryClickEvent
 
-public interface IClickEventHandler
-{
-    void Handle(InventoryClickEvent event);
+fun interface IClickEventHandler {
+    fun handle(event: InventoryClickEvent)
 }

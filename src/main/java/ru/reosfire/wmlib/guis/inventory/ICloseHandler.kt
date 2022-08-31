@@ -1,6 +1,5 @@
-package ru.reosfire.wmlib.guis.inventory;
+package ru.reosfire.wmlib.guis.inventory
 
-public interface ICloseHandler
-{
-    void Handle(CloseEvent event);
+fun interface ICloseHandler {
+    fun handle(event: CloseEvent)
 }

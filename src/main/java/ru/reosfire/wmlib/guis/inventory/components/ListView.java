@@ -27,8 +27,8 @@ public abstract class ListView<T> extends GuiComponent
     {
         super(gui);
         Config = config;
-        int start = Math.min(Config.StartIndex, Config.EndIndex);
-        int end = Math.max(Config.StartIndex, Config.EndIndex);
+        int start = Math.min(Config.getStartIndex(), Config.getEndIndex());
+        int end = Math.max(Config.getStartIndex(), Config.getEndIndex());
         int startX = start % 9;
         int endX = end % 9;
         for (int i = start; i <= end; i++)
@@ -52,17 +52,17 @@ public abstract class ListView<T> extends GuiComponent
     public void register()
     {
         backwardButton = new BackwardButton();
-        gui.addComponent(backwardButton);
+        getGui().addComponent(backwardButton);
         forwardButton = new ForwardButton();
-        gui.addComponent(forwardButton);
+        getGui().addComponent(forwardButton);
         addClickHandler(this::OnMenuItemClicked);
     }
     @Override
     public void unregister()
     {
         super.unregister();
-        gui.removeComponent(forwardButton);
-        gui.removeComponent(backwardButton);
+        getGui().removeComponent(forwardButton);
+        getGui().removeComponent(backwardButton);
     }
     protected void OnElementClick(T element, InventoryClickEvent event)
     {
@@ -104,28 +104,28 @@ public abstract class ListView<T> extends GuiComponent
     {
         public BackwardButton()
         {
-            super(Config.BackButton, ListView.this.gui);
+            super(Config.getBackButton(), ListView.this.getGui());
         }
 
         @Override
         protected void onClick(InventoryClickEvent event)
         {
             index--;
-            ListView.this.ReRender();
+            ListView.this.reRender();
         }
     }
     public class ForwardButton extends Button
     {
         public ForwardButton()
         {
-            super(Config.ForwardButton, ListView.this.gui);
+            super(Config.getForwardButton(), ListView.this.getGui());
         }
 
         @Override
         protected void onClick(InventoryClickEvent event)
         {
             index++;
-            ListView.this.ReRender();
+            ListView.this.reRender();
         }
     }
 }

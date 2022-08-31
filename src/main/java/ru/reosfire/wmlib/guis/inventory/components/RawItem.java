@@ -15,9 +15,9 @@ public class RawItem extends GuiComponent
     }
     public void renderTo(Inventory inventory, Replacement... replacements)
     {
-        for (Integer index : Config.Indexes)
+        for (Integer index : Config.getIndexes())
         {
-            inventory.setItem(index, Config.Item.unwrap(gui.getPlayer(), replacements));
+            inventory.setItem(index, Config.getItem().unwrap(getGui().getPlayer(), replacements));
         }
     }
 

@@ -52,14 +52,14 @@ abstract class Gui(private val GuiConfig: GuiConfig, val Player: Player, plugin:
         }.runTask(plugin)
     }
 
-    fun redrawComponents(vararg replacements: Replacement?) {
+    fun redrawComponents(vararg replacements: Replacement) {
         for (component in components) {
             redrawComponent(component, *replacements)
         }
     }
 
-    fun redrawComponent(component: GuiComponent, vararg replacements: Replacement?) {
-        component.renderTo(inventory, *replacements)
+    fun redrawComponent(component: GuiComponent, vararg replacements: Replacement) {
+        component.renderTo(inventory!!, *replacements)
     }
 
     fun addComponent(component: GuiComponent) {
@@ -73,7 +73,7 @@ abstract class Gui(private val GuiConfig: GuiConfig, val Player: Player, plugin:
     }
 
     protected fun show(vararg replacements: Replacement) {
-        show(GuiConfig.Title!!, GuiConfig.Size, *replacements)
+        show(GuiConfig.title!!, GuiConfig.size, *replacements)
     }
 
     fun close() {
@@ -82,8 +82,8 @@ abstract class Gui(private val GuiConfig: GuiConfig, val Player: Player, plugin:
 
     init {
         Events = EventsHandler(plugin)
-        for (component in GuiConfig.Components) {
-            addComponent(GuiComponent.Create(component, this))
+        for (component in GuiConfig.components) {
+            addComponent(GuiComponent.create(component, this))
         }
         this.plugin = plugin
     }
@@ -124,7 +124,7 @@ abstract class Gui(private val GuiConfig: GuiConfig, val Player: Player, plugin:
             event.isCancelled = true
             val currentItem = event.currentItem ?: return
             for (clickHandler in clickHandlers) {
-                clickHandler.Handle(event)
+                clickHandler.handle(event)
             }
         }
 
@@ -167,7 +167,7 @@ abstract class Gui(private val GuiConfig: GuiConfig, val Player: Player, plugin:
             var cancelled = false
             for (closeHandler in closeHandlers) {
                 val closeEvent = CloseEvent(event)
-                closeHandler.Handle(closeEvent)
+                closeHandler.handle(closeEvent)
                 if (closeEvent.cancelled) cancelled = true
             }
             if (cancelled) open() else cancelHandling()

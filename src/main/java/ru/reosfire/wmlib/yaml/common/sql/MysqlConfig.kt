@@ -1,67 +1,37 @@
-package ru.reosfire.wmlib.yaml.common.sql;
+package ru.reosfire.wmlib.yaml.common.sql
 
-import org.bukkit.configuration.ConfigurationSection;
-import ru.reosfire.wmlib.sql.ISqlConfiguration;
-import ru.reosfire.wmlib.sql.SqlRequirementsNotSatisfiedException;
-import ru.reosfire.wmlib.yaml.YamlConfig;
+import org.bukkit.configuration.ConfigurationSection
+import ru.reosfire.wmlib.yaml.YamlConfig
+import ru.reosfire.wmlib.sql.ISqlConfiguration
+import kotlin.Throws
+import ru.reosfire.wmlib.sql.SqlRequirementsNotSatisfiedException
+import java.lang.ClassNotFoundException
 
-public class MysqlConfig extends YamlConfig implements ISqlConfiguration
-{
-    public final String Ip;
-    public final String User;
-    public final String Password;
-    public final String Database;
-    public final boolean UseSsl, UseUnicode, AutoReconnect, FailOverReadOnly;
-    public final int Port, MaxReconnects;
+class MysqlConfig(configurationSection: ConfigurationSection?) : YamlConfig(configurationSection), ISqlConfiguration {
+    val ip = getString("Ip")!!
+    override val user = getString("User")!!
+    override val password = getString("Password")!!
+    private val database = getString("Database")!!
+    val useSsl = getBoolean("UseSsl", false)
+    val useUnicode = getBoolean("UseUnicode", true)
+    val autoReconnect = getBoolean("AutoReconnect", true)
+    val failOverReadOnly = getBoolean("FailOverReadOnly", false)
+    val port = getInt("Port", 3306)
+    val maxReconnects = getInt("MaxReconnects", 2)
 
-    public MysqlConfig(ConfigurationSection configurationSection)
-    {
-        super(configurationSection);
-        Ip = getString("Ip");
-        Port = getInt("Port", 3306);
-        User = getString("User");
-        Password = getString("Password");
-        Database = getString("Database");
-        UseSsl = getBoolean("UseSsl", false);
-        UseUnicode = getBoolean("UseUnicode", true);
-        AutoReconnect = getBoolean("AutoReconnect", true);
-        FailOverReadOnly = getBoolean("FailOverReadOnly", false);
-        MaxReconnects = getInt("MaxReconnects", 8);
-    }
+    override val connectionString get() = ("jdbc:mysql://" + ip + ":" + port + "/" + database
+            + "?useSSL=" + (if (useSsl) "true" else "false")
+            + "&useUnicode=" + (if (useUnicode) "true" else "false")
+            + "&autoReconnect=" + (if (autoReconnect) "true" else "false")
+            + "&failOverReadOnly=" + (if (failOverReadOnly) "true" else "false")
+            + "&maxReconnects=" + maxReconnects)
 
-    @Override
-    public String getUser()
-    {
-        return User;
-    }
-
-    @Override
-    public String getPassword()
-    {
-        return Password;
-    }
-
-    @Override
-    public String getConnectionString()
-    {
-        return "jdbc:mysql://" + Ip + ":" + Port + "/" + Database
-                + "?useSSL=" + (UseSsl ? "true" : "false")
-                + "&useUnicode=" + (UseUnicode ? "true" : "false")
-                + "&autoReconnect=" + (AutoReconnect ? "true" : "false")
-                + "&failOverReadOnly=" + (FailOverReadOnly ? "true" : "false")
-                + "&maxReconnects=" + MaxReconnects;
-    }
-
-    @Override
-    public void checkRequirements() throws SqlRequirementsNotSatisfiedException
-    {
-        try
-        {
-            Class.forName("com.mysql.jdbc.Driver");
-        }
-        catch (ClassNotFoundException e)
-        {
-            throw new SqlRequirementsNotSatisfiedException(e);
+    @Throws(SqlRequirementsNotSatisfiedException::class)
+    override fun checkRequirements() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver")
+        } catch (e: ClassNotFoundException) {
+            throw SqlRequirementsNotSatisfiedException(e)
         }
     }
 }
