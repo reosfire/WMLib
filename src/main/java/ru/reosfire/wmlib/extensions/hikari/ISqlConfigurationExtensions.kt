@@ -12,3 +12,14 @@ fun ISqlConfiguration.getHikariDataSource(): HikariDataSource{
 
     return HikariDataSource(config)
 }
+
+fun ISqlConfiguration.getHikariDataSource(configurer :(HikariConfig) -> Unit): HikariDataSource{
+    val config = HikariConfig()
+    config.jdbcUrl = connectionString
+    config.username = user
+    config.password = password
+
+    configurer(config)
+
+    return HikariDataSource(config)
+}
