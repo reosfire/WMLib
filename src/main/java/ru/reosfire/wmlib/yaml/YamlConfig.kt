@@ -134,7 +134,8 @@ abstract class YamlConfig(configurationSection: ConfigurationSection?) {
     fun getStringList(path: String): List<String?>? {
         val stringList = section.getStringList(path)
         if (stringList == null || stringList.isEmpty()) {
-            return listOf(getString(path))
+            val res = getString(path) ?: return null
+            return listOf(res)
         }
         return stringList
     }

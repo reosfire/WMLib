@@ -53,7 +53,7 @@ class ItemConfig(section: ConfigurationSection?) : YamlConfig(section), WrapperC
     }
 
     fun unwrap(colorizer: IColorizer): ItemStack {
-        val itemStack = ItemStack(MaterialData.Material, Amount, MaterialData.Data.toShort())
+        val itemStack = ItemStack(MaterialData.material, Amount, MaterialData.data.toShort())
         setTo(itemStack, colorizer)
         return itemStack
     }

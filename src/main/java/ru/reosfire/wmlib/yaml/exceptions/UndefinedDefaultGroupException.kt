@@ -1,6 +1,3 @@
-package ru.reosfire.wmlib.yaml.exceptions;
+package ru.reosfire.wmlib.yaml.exceptions
 
-public class UndefinedDefaultGroupException extends Exception
-{
-
-}
+class UndefinedDefaultGroupException : Exception()

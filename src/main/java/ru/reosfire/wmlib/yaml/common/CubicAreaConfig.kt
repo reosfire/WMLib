@@ -18,10 +18,10 @@ class CubicAreaConfig(configurationSection: ConfigurationSection?) : YamlConfig(
     }
 
     private fun getMinVector(a: VectorConfig, b: VectorConfig): Vector {
-        return Vector(min(a.X, b.X), min(a.Y, b.Y), min(a.Z, b.Z))
+        return Vector(min(a.x, b.x), min(a.y, b.y), min(a.z, b.z))
     }
 
     private fun getMaxVector(a: VectorConfig, b: VectorConfig): Vector {
-        return Vector(max(a.X, b.X), max(a.Y, b.Y), max(a.Z, b.Z))
+        return Vector(max(a.x, b.x), max(a.y, b.y), max(a.z, b.z))
     }
 }

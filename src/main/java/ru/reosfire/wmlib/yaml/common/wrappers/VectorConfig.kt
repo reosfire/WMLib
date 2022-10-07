@@ -1,37 +1,27 @@
-package ru.reosfire.wmlib.yaml.common.wrappers;
+package ru.reosfire.wmlib.yaml.common.wrappers
 
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
-import ru.reosfire.wmlib.yaml.YamlConfig;
+import org.bukkit.Location
+import org.bukkit.World
+import org.bukkit.configuration.ConfigurationSection
+import org.bukkit.entity.Player
+import org.bukkit.util.Vector
+import ru.reosfire.wmlib.yaml.YamlConfig
 
-public class VectorConfig extends YamlConfig implements WrapperConfig<Vector>
-{
-    public final Double X;
-    public final Double Y;
-    public final Double Z;
+class VectorConfig(configurationSection: ConfigurationSection?) : YamlConfig(configurationSection),
+    WrapperConfig<Vector?> {
+    val x: Double = getDouble("X")
+    val y: Double = getDouble("Y")
+    val z: Double = getDouble("Z")
 
-    public VectorConfig(ConfigurationSection configurationSection)
-    {
-        super(configurationSection);
-        X = getDouble("X");
-        Y = getDouble("Y");
-        Z = getDouble("Z");
+    override fun unwrap(): Vector {
+        return Vector(x, y, z)
     }
 
-    @Override
-    public Vector unwrap()
-    {
-        return new Vector(X, Y, Z);
+    fun unwrap(world: World?): Location {
+        return unwrap().toLocation(world)
     }
-    public Location Unwrap(World world)
-    {
-        return unwrap().toLocation(world);
-    }
-    public void teleport(Player player)
-    {
-        player.teleport(Unwrap(player.getWorld()));
+
+    fun teleport(player: Player) {
+        player.teleport(unwrap(player.world))
     }
 }
